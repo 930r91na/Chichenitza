@@ -1,10 +1,55 @@
-<section id="zonas-section" class="admin-section active">
-    <div class="content-card">
-        <div class="card-header">
-            <h3>Gestión de Zonas</h3>
-        </div>
-        <div class="card-body">
-            <p>Contenido de gestión de zonas...</p>
-            </div>
+<div class="content-card">
+    <div class="card-header">
+        <h3>Gestión de Zonas del Tour</h3>
+        <button class="btn btn-primary" id="btn-add-zone">
+            + Agregar Nueva Zona
+        </button>
     </div>
-</section>
+    <div class="card-body">
+        <p class="mb-3">Aquí se configuran las zonas que los turistas pueden visitar, su nivel de acceso, imágenes y descripciones.</p>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Nombre de la Zona</th>
+                    <th>Nivel Acceso</th>
+                    <th>Puntos</th>
+                    <th>Imagen (Ruta)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Pirámide de Kukulcán</strong></td>
+                    <td><span class="status-badge" style="color: gray; background: #eee;">Free</span></td>
+                    <td>100</td>
+                    <td><small>images/kukulcan.jpeg</small></td>
+                    <td>
+                        <button class="btn btn-secondary btn-small btn-edit-zone">Editar</button>
+                        <button class="btn btn-icon" title="Eliminar">🗑️</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Templo de los Guerreros</strong></td>
+                    <td><span class="status-badge" style="color: var(--primary-gold); background: rgba(201, 169, 97, 0.1);">Premium</span></td>
+                    <td>150</td>
+                    <td><small>images/templo-guerreros.jpg</small></td>
+                    <td>
+                        <button class="btn btn-secondary btn-small btn-edit-zone">Editar</button>
+                        <button class="btn btn-icon" title="Eliminar">🗑️</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Cenote Sagrado</strong></td>
+                    <td><span class="status-badge" style="color: var(--membership-vip); background: rgba(139, 92, 246, 0.1);">VIP</span></td>
+                    <td>200</td>
+                    <td><small>images/cenote-sagrado.jpg</small></td>
+                    <td>
+                        <button class="btn btn-secondary btn-small btn-edit-zone">Editar</button>
+                        <button class="btn btn-icon" title="Eliminar">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

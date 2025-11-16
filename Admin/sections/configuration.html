@@ -1,10 +1,38 @@
-<section id="configuracion-section" class="admin-section active">
-    <div class="content-card">
-        <div class="card-header">
-            <h3>Configuración del Sistema</h3>
-        </div>
-        <div class="card-body">
-            <p>Contenido de configuración...</p>
-            </div>
+<div class="content-card">
+    <div class="card-header">
+        <h3>Configuración del Sistema</h3>
     </div>
-</section>
+    <div class="card-body">
+        <form class="modal-form">
+            <div class="form-group">
+                <label>Nombre del Sitio</label>
+                <input type="text" value="Chichen Itzá Virtual Tours">
+            </div>
+
+            <div class="form-group">
+                <label>Mensaje Global del Sistema (Opcional)</label>
+                <input type="text" placeholder="Ej: Mantenimiento programado este viernes...">
+                <small>Este mensaje aparecerá en un banner para todos los usuarios.</small>
+            </div>
+            
+            <div class="form-group">
+                <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span>Poner el sitio en Modo Mantenimiento</span>
+                </label>
+                <small>Si se activa, solo los Administradores podrán iniciar sesión.</small>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" checked>
+                    <span>Permitir nuevos registros de turistas</span>
+                </label>
+            </div>
+
+            <div class="modal-footer" style="padding: 2rem 0 0 0; border-top: 1px solid var(--border-light);">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

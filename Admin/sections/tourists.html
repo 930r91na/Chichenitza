@@ -1,10 +1,51 @@
-<section id="turistas-section" class="admin-section active">
-    <div class="content-card">
-        <div class="card-header">
-            <h3>Gestión de Turistas</h3>
-        </div>
-        <div class="card-body">
-            <p>Contenido de gestión de turistas...</p>
-            </div>
+<div class="content-card">
+    <div class="card-header">
+        <h3>Gestión de Turistas</h3>
+        <input type="text" placeholder="Buscar turistas por email..." class="filter-input" style="width: 300px;">
     </div>
-</section>
+    <div class="card-body">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Nombre Turista</th>
+                    <th>Email</th>
+                    <th>Membresía</th>
+                    <th>Fecha Registro</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Juan Pérez</strong></td>
+                    <td>juan.perez@email.com</td>
+                    <td><span class="status-badge" style="color: var(--primary-gold); background: rgba(201, 169, 97, 0.1);">Premium</span></td>
+                    <td>2025-11-15</td>
+                    <td>
+                        <button class="btn btn-outline btn-small">Ver Perfil</button>
+                        <button class="btn btn-icon" title="Suspender">🚫</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Ana García</strong></td>
+                    <td>ana.garcia@email.com</td>
+                    <td><span class="status-badge" style="color: gray; background: #eee;">Free</span></td>
+                    <td>2025-11-14</td>
+                    <td>
+                        <button class="btn btn-outline btn-small">Ver Perfil</button>
+                        <button class="btn btn-icon" title="Suspender">🚫</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Carlos Mendoza</strong></td>
+                    <td>c.mendoza@email.com</td>
+                    <td><span class="status-badge" style="color: var(--membership-vip); background: rgba(139, 92, 246, 0.1);">VIP</span></td>
+                    <td>2025-11-12</td>
+                    <td>
+                        <button class="btn btn-outline btn-small">Ver Perfil</button>
+                        <button class="btn btn-icon" title="Suspender">🚫</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
