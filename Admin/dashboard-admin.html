@@ -143,6 +143,48 @@
         </div>
     </div>
 
+    <div id="modalZona" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Gestionar Zona</h2>
+                <button class="modal-close" onclick="cerrarModalZona()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form">
+                    <div class="form-group">
+                        <label>Nombre de la Zona</label>
+                        <input type="text" placeholder="Ej: Pirámide de Kukulcán">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea rows="3" placeholder="Descripción para el tour..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nivel de Acceso (Tier)</label>
+                            <select>
+                                <option value="free">Free</option>
+                                <option value="premium">Premium</option>
+                                <option value="vip">VIP</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Puntos de Recompensa</label>
+                            <input type="number" placeholder="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ruta de la Imagen</label>
+                        <input type="text" placeholder="Ej: images/kukulcan.jpeg">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="cerrarModalZona()">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Zona</button>
+            </div>
+        </div>
+    </div>
     <script src="../js/core/config.js"></script>
     <script src="../js/core/auth.js"></script>
     <script src="../js/utils/notifications.js"></script>
