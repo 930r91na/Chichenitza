@@ -1,0 +1,118 @@
+/**
+ * ADMIN EVENTOS (SECTION)
+ * Styles for the events management list
+ */
+
+.eventos-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.evento-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    background: var(--bg-primary);
+    border-radius: 12px;
+    padding: var(--space-lg);
+    border: 1px solid var(--border-light);
+    transition: var(--transition-base);
+}
+
+.evento-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+}
+
+.evento-date {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    text-align: center;
+    padding: var(--space-sm);
+}
+
+.date-day {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-stone);
+    display: block;
+    line-height: 1.2;
+}
+
+.date-month {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.evento-info {
+    flex: 1;
+}
+
+.evento-info h4 {
+    margin: 0 0 var(--space-xs);
+    font-size: 1.125rem;
+    color: var(--text-primary);
+}
+
+.evento-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.evento-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+}
+
+.evento-stats span {
+    color: var(--text-secondary);
+}
+
+.evento-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 12px;
+    text-transform: uppercase;
+}
+
+.evento-status.disponible {
+    background: rgba(95, 155, 109, 0.2);
+    color: var(--primary-jade);
+}
+
+.evento-status.completo {
+    background: rgba(184, 98, 79, 0.2);
+    color: var(--secondary-terracotta);
+}
+
+.evento-actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+    .evento-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .evento-stats {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .evento-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

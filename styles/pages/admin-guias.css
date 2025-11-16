@@ -1,0 +1,108 @@
+/**
+ * ADMIN GUIAS (SECTION)
+ * Styles for the guides management grid
+ */
+
+.guias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+}
+
+.guia-card {
+    background: var(--bg-primary);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    padding: var(--space-lg);
+    transition: var(--transition-base);
+}
+
+.guia-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.guia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+}
+
+.guia-avatar {
+    font-size: 2.5rem;
+    background: var(--bg-secondary);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guia-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 12px;
+    text-transform: uppercase;
+}
+
+.guia-status.online {
+    background: rgba(95, 155, 109, 0.2);
+    color: var(--primary-jade);
+}
+
+.guia-status.busy {
+    background: rgba(184, 98, 79, 0.2);
+    color: var(--secondary-terracotta);
+}
+
+.guia-status.offline {
+    background: rgba(138, 138, 138, 0.2);
+    color: var(--text-secondary);
+}
+
+.guia-card h3 {
+    margin: 0 0 var(--space-xs);
+    color: var(--text-primary);
+}
+
+.guia-specialty {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-lg);
+}
+
+.guia-stats {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: var(--space-lg);
+}
+
+.guia-stats .stat {
+    flex: 1;
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-stone);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.guia-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+}

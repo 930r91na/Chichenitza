@@ -1,0 +1,45 @@
+<section id="guias-section" class="admin-section active">
+    <div class="content-card">
+        <div class="card-header">
+            <h3>Gestión de Guías Turísticos</h3>
+            <button class="btn btn-primary" onclick="abrirModalGuia()">
+                + Agregar Guía
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="filters-bar">
+                <input type="text" placeholder="Buscar guías..." class="filter-input">
+                <select class="filter-select">
+                    <option value="">Todos los estados</option>
+                    <option value="activo">Activos</option>
+                    <option value="inactivo">Inactivos</option>
+                    <option value="tour">En tour</option>
+                </select>
+            </div>
+            <div class="guias-grid">
+                <div class="guia-card">
+                    <div class="guia-header">
+                        <div class="guia-avatar">👨‍🏫</div>
+                        <div class="guia-status online">En línea</div>
+                    </div>
+                    <h3>Dr. Carlos López</h3>
+                    <p class="guia-specialty">Especialidad: Historia Maya</p>
+                    <div class="guia-stats">
+                        <div class="stat">
+                            <span class="stat-value">245</span>
+                            <span class="stat-label">Tours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">4.9</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    <div class="guia-actions">
+                        <button class="btn btn-icon" title="Editar">✏️</button>
+                        <button class="btn btn-icon" title="Eliminar">🗑️</button>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</section>
