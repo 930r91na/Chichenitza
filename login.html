@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Chichen Itzá Virtual Tours</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+    <!-- Background placeholder for Chichen Itza image -->
+    <div class="login-background">
+        <!-- 
+        TODO: Add Chichen Itza background image here
+        Suggested image: Panoramic view of Kukulkan Pyramid at sunset
+        Path: ./images/chichen-itza-background.jpg
+        -->
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-large">
+                    <span class="logo-icon">🏛️</span>
+                    <h1>Chichen Itzá</h1>
+                    <p class="logo-subtitle">Virtual Tours Experience</p>
+                </div>
+            </div>
+
+            <!-- Tab Selection -->
+            <div class="login-tabs">
+                <button class="login-tab active" onclick="cambiarTabLogin('turista')">
+                    <span class="tab-icon">👤</span>
+                    <span>Turista</span>
+                </button>
+                <button class="login-tab" onclick="cambiarTabLogin('admin')">
+                    <span class="tab-icon">⚙️</span>
+                    <span>Administrador</span>
+                </button>
+            </div>
+
+            <!-- Tourist Login -->
+            <div id="turista-login" class="login-form-container active">
+                <h2>Bienvenido de Vuelta</h2>
+                <p class="form-subtitle">Inicia sesión para continuar tu experiencia virtual</p>
+
+                <form id="loginTuristaForm" class="login-form" onsubmit="iniciarSesionTurista(event)">
+                    <div class="form-group-login">
+                        <label for="turistaEmail">
+                            <span class="label-icon">📧</span>
+                            Correo Electrónico
+                        </label>
+                        <input type="email" id="turistaEmail" name="email" required 
+                               placeholder="tu@email.com">
+                    </div>
+
+                    <div class="form-group-login">
+                        <label for="turistaPassword">
+                            <span class="label-icon">🔒</span>
+                            Contraseña
+                        </label>
+                        <input type="password" id="turistaPassword" name="password" required 
+                               placeholder="••••••••">
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="recordar">
+                            <span>Recordarme</span>
+                        </label>
+                        <a href="#" class="link-small">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Iniciar Sesión
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>o</span>
+                </div>
+
+                <button class="btn btn-register" onclick="window.location.href='Tourist/registro-turista.html'">
+                    <span>✨</span>
+                    Crear Nueva Cuenta
+                </button>
+
+                <div class="info-box-login">
+                    <h4>💎 Niveles de Membresía</h4>
+                    <div class="membership-tiers">
+                        <div class="tier">
+                            <span class="tier-badge free">FREE</span>
+                            <span class="tier-desc">Acceso a 2 zonas básicas</span>
+                        </div>
+                        <div class="tier">
+                            <span class="tier-badge premium">PREMIUM</span>
+                            <span class="tier-desc">Todas las zonas + Guías</span>
+                        </div>
+                        <div class="tier">
+                            <span class="tier-badge vip">VIP</span>
+                            <span class="tier-desc">Tours privados + Eventos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Login -->
+            <div id="admin-login" class="login-form-container">
+                <h2>Panel Administrativo</h2>
+                <p class="form-subtitle">Acceso restringido para personal autorizado</p>
+
+                <form id="loginAdminForm" class="login-form" onsubmit="iniciarSesionAdmin(event)">
+                    <div class="form-group-login">
+                        <label for="adminUsuario">
+                            <span class="label-icon">👤</span>
+                            Usuario Administrativo
+                        </label>
+                        <input type="text" id="adminUsuario" name="usuario" required 
+                               placeholder="usuario.admin">
+                    </div>
+
+                    <div class="form-group-login">
+                        <label for="adminPassword">
+                            <span class="label-icon">🔐</span>
+                            Contraseña
+                        </label>
+                        <input type="password" id="adminPassword" name="password" required 
+                               placeholder="••••••••">
+                    </div>
+
+                    <div class="form-group-login">
+                        <label for="adminCodigo">
+                            <span class="label-icon">🔑</span>
+                            Código de Acceso
+                        </label>
+                        <input type="text" id="adminCodigo" name="codigo" required 
+                               placeholder="XXXX-XXXX-XXXX"
+                               pattern="[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}">
+                        <small>Código de 12 dígitos proporcionado por el sistema</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Acceder al Panel
+                    </button>
+                </form>
+
+                <div class="security-notice">
+                    <span class="notice-icon">⚠️</span>
+                    <p>Este panel es de acceso restringido. Todos los intentos de acceso son registrados y monitoreados por el sistema de seguridad.</p>
+                </div>
+
+                <div class="demo-credentials">
+                    <h4>🔧 Credenciales de Demostración</h4>
+                    <p><strong>Usuario:</strong> admin.demo</p>
+                    <p><strong>Contraseña:</strong> Demo2025!</p>
+                    <p><strong>Código:</strong> DEMO-2025-TEST</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="login-footer">
+            <p>&copy; 2025 Chichen Itzá Virtual Tours | Patrimonio de la Humanidad UNESCO</p>
+            <div class="footer-links">
+                <a href="#">Términos de Servicio</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Soporte</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function cambiarTabLogin(tipo) {
+            // Cambiar tabs activos
+            document.querySelectorAll('.login-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.closest('.login-tab').classList.add('active');
+
+            // Cambiar contenido
+            document.querySelectorAll('.login-form-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            document.getElementById(tipo + '-login').classList.add('active');
+        }
+
+        function iniciarSesionTurista(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('turistaEmail').value;
+            const password = document.getElementById('turistaPassword').value;
+
+            // Simular autenticación
+            const usuario = {
+                tipo: 'turista',
+                email: email,
+                nombre: 'Usuario Demo',
+                nivel: 'free', // free, premium, vip
+                fechaRegistro: new Date().toISOString()
+            };
+
+            // Guardar sesión
+            localStorage.setItem('sesionActual', JSON.stringify(usuario));
+            
+            // Mostrar notificación
+            mostrarNotificacion('Inicio de sesión exitoso. Redirigiendo...', 'success');
+            
+            // Redirigir a tour
+            setTimeout(() => {
+                window.location.href = 'Tourist/tour-turista.html';
+            }, 1500);
+        }
+
+        function iniciarSesionAdmin(event) {
+            event.preventDefault();
+            
+            const usuario = document.getElementById('adminUsuario').value;
+            const password = document.getElementById('adminPassword').value;
+            const codigo = document.getElementById('adminCodigo').value;
+
+            // Validar credenciales demo
+            if (usuario === 'admin.demo' && password === 'Demo2025!' && codigo === 'DEMO-2025-TEST') {
+                const admin = {
+                    tipo: 'admin',
+                    usuario: usuario,
+                    nombre: 'Administrador',
+                    permisos: ['usuarios', 'zonas', 'eventos', 'estadisticas', 'configuracion'],
+                    fechaAcceso: new Date().toISOString()
+                };
+
+                localStorage.setItem('sesionActual', JSON.stringify(admin));
+                mostrarNotificacion('Acceso autorizado. Bienvenido al panel administrativo.', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'Admin/dashboard-admin.html';
+                }, 1500);
+            } else {
+                mostrarNotificacion('Credenciales inválidas. Acceso denegado.', 'error');
+            }
+        }
+
+        // Verificar si ya hay sesión activa
+        window.onload = function() {
+            const sesion = localStorage.getItem('sesionActual');
+            if (sesion) {
+                const usuario = JSON.parse(sesion);
+                if (usuario.tipo === 'turista') {
+                    window.location.href = 'tour-turista.html';
+                } else if (usuario.tipo === 'admin') {
+                    window.location.href = 'dashboard-admin.html';
+                }
+            }
+        };
+    </script>
+</body>
+</html>

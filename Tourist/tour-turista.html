@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Virtual - Chichen Itzá</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="tour-turista-layout">
+        <!-- Top Navigation Bar -->
+        <nav class="tour-navbar">
+            <div class="tour-nav-left">
+                <span class="logo-icon">🏛️</span>
+                <h2>Chichen Itzá Virtual</h2>
+            </div>
+            <div class="tour-nav-center">
+                <div class="membership-display" id="membershipBadge">
+                    <span class="membership-icon">⭐</span>
+                    <span id="membershipLevel">FREE</span>
+                </div>
+            </div>
+            <div class="tour-nav-right">
+                <button class="nav-btn" onclick="verPerfil()">👤 Perfil</button>
+                <button class="nav-btn" onclick="cerrarSesion()">🚪 Salir</button>
+            </div>
+        </nav>
+
+        <div class="tour-main-container">
+            <!-- Left Sidebar - User Info & Stats -->
+            <aside class="tour-sidebar-left">
+                <div class="user-profile-card">
+                    <div class="profile-avatar" id="userAvatarDisplay">
+                        <div class="avatar-img">👤</div>
+                    </div>
+                    <h3 id="userName">Usuario</h3>
+                    <p class="user-level" id="userMembership">Plan Free</p>
+                </div>
+
+                <div class="user-stats-card">
+                    <h4>Estadísticas</h4>
+                    <div class="stat-row">
+                        <span class="stat-icon">🏛️</span>
+                        <div class="stat-details">
+                            <span class="stat-label">Zonas Visitadas</span>
+                            <span class="stat-value" id="zonasVisitadas">0/6</span>
+                        </div>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-icon">⏱️</span>
+                        <div class="stat-details">
+                            <span class="stat-label">Tiempo Total</span>
+                            <span class="stat-value" id="tiempoTotal">0h 0m</span>
+                        </div>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-icon">⭐</span>
+                        <div class="stat-details">
+                            <span class="stat-label">Puntos</span>
+                            <span class="stat-value" id="puntosUsuario">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="connection-status-card">
+                    <div class="status-indicator online"></div>
+                    <span>Conectado</span>
+                </div>
+            </aside>
+
+            <!-- Main Tour Viewport -->
+            <main class="tour-viewport-main">
+                <div class="tour-scene-container">
+                    <!-- 
+                    TODO: Background image for current zone
+                    Default: Pyramid of Kukulkan
+                    Path: ./images/zones/kukulkan.jpg
+                    -->
+                    <div class="tour-scene-bg">
+                        <div class="scene-overlay-gradient"></div>
+                    </div>
+
+                    <div class="tour-scene-content">
+                        <h1 id="zoneName">Bienvenido a Chichen Itzá</h1>
+                        <p id="zoneDescription">Selecciona una zona para comenzar tu recorrido virtual</p>
+                    </div>
+
+                    <div class="tour-scene-info">
+                        <div class="online-users">
+                            <span class="users-icon">👥</span>
+                            <span id="onlineCount">48</span> en línea
+                        </div>
+                    </div>
+
+                    <!-- Navigation Controls -->
+                    <div class="tour-controls-overlay">
+                        <button class="control-btn up" onclick="moverAvatar('adelante')">⬆️</button>
+                        <div class="control-row-horizontal">
+                            <button class="control-btn left" onclick="moverAvatar('izquierda')">⬅️</button>
+                            <button class="control-btn right" onclick="moverAvatar('derecha')">➡️</button>
+                        </div>
+                        <button class="control-btn down" onclick="moverAvatar('atras')">⬇️</button>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="tour-action-bar">
+                    <button class="action-btn" onclick="tomarFoto()">
+                        <span class="action-icon">📷</span>
+                        <span>Foto</span>
+                    </button>
+                    <button class="action-btn" onclick="mostrarMapa()">
+                        <span class="action-icon">🗺️</span>
+                        <span>Mapa</span>
+                    </button>
+                    <button class="action-btn" onclick="mostrarInfo()">
+                        <span class="action-icon">ℹ️</span>
+                        <span>Info</span>
+                    </button>
+                    <button class="action-btn" onclick="abrirChat()">
+                        <span class="action-icon">💬</span>
+                        <span>Chat</span>
+                    </button>
+                    <button class="action-btn" id="guideBtn" onclick="solicitarGuia()" disabled>
+                        <span class="action-icon">👨‍🏫</span>
+                        <span>Guía</span>
+                    </button>
+                </div>
+            </main>
+
+            <!-- Right Sidebar - Zones List -->
+            <aside class="tour-sidebar-right">
+                <h3>Zonas Disponibles</h3>
+                
+                <div class="zones-list-tour">
+                    <!-- Free Zones -->
+                    <div class="zone-item-tour accessible" onclick="visitarZona('kukulkan', 'free')">
+                        <div class="zone-icon-tour">🏛️</div>
+                        <div class="zone-info-tour">
+                            <h4>Pirámide de Kukulcán</h4>
+                            <span class="zone-access">🆓 Gratis</span>
+                        </div>
+                        <span class="zone-arrow">→</span>
+                    </div>
+
+                    <div class="zone-item-tour accessible" onclick="visitarZona('pelota', 'free')">
+                        <div class="zone-icon-tour">⚽</div>
+                        <div class="zone-info-tour">
+                            <h4>Juego de Pelota</h4>
+                            <span class="zone-access">🆓 Gratis</span>
+                        </div>
+                        <span class="zone-arrow">→</span>
+                    </div>
+
+                    <!-- Premium Zones -->
+                    <div class="zone-item-tour locked" onclick="verificarAcceso('guerreros', 'premium')">
+                        <div class="zone-icon-tour">⚔️</div>
+                        <div class="zone-info-tour">
+                            <h4>Templo de los Guerreros</h4>
+                            <span class="zone-access premium">⭐ Premium</span>
+                        </div>
+                        <span class="zone-lock">🔒</span>
+                    </div>
+
+                    <div class="zone-item-tour locked" onclick="verificarAcceso('caracol', 'premium')">
+                        <div class="zone-icon-tour">🔭</div>
+                        <div class="zone-info-tour">
+                            <h4>El Caracol</h4>
+                            <span class="zone-access premium">⭐ Premium</span>
+                        </div>
+                        <span class="zone-lock">🔒</span>
+                    </div>
+
+                    <div class="zone-item-tour locked" onclick="verificarAcceso('monjas', 'premium')">
+                        <div class="zone-icon-tour">🏰</div>
+                        <div class="zone-info-tour">
+                            <h4>Las Monjas</h4>
+                            <span class="zone-access premium">⭐ Premium</span>
+                        </div>
+                        <span class="zone-lock">🔒</span>
+                    </div>
+
+                    <!-- VIP Zone -->
+                    <div class="zone-item-tour locked" onclick="verificarAcceso('cenote', 'vip')">
+                        <div class="zone-icon-tour">💧</div>
+                        <div class="zone-info-tour">
+                            <h4>Cenote Sagrado</h4>
+                            <span class="zone-access vip">💎 VIP</span>
+                        </div>
+                        <span class="zone-lock">🔒</span>
+                    </div>
+                </div>
+
+                <!-- Upgrade Section -->
+                <div class="upgrade-section" id="upgradeSection">
+                    <h4>🌟 Desbloquea Más Zonas</h4>
+                    <p>Mejora tu membresía para acceder a todas las zonas</p>
+                    <button class="btn btn-primary btn-small" onclick="mostrarPlanes()">
+                        Ver Planes
+                    </button>
+                </div>
+
+                <!-- Events Section -->
+                <div class="events-section">
+                    <h4>📅 Próximos Eventos</h4>
+                    <div class="event-item-small" id="eventsList">
+                        <p class="no-events">No hay eventos disponibles para tu nivel</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Upgrade Modal -->
+    <div id="upgradeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal('upgradeModal')">&times;</span>
+            <h2>🌟 Mejora tu Experiencia</h2>
+            <p id="modalMessage">Esta zona requiere una membresía Premium o superior</p>
+            
+            <div class="plans-comparison">
+                <div class="plan-box">
+                    <h3>Premium</h3>
+                    <div class="plan-price">$299<span>/mes</span></div>
+                    <ul>
+                        <li>✓ 6 zonas completas</li>
+                        <li>✓ Guías incluidos</li>
+                        <li>✓ Eventos mensuales</li>
+                    </ul>
+                    <button class="btn btn-primary">Mejorar</button>
+                </div>
+                <div class="plan-box highlight">
+                    <div class="popular-tag">POPULAR</div>
+                    <h3>VIP</h3>
+                    <div class="plan-price">$599<span>/mes</span></div>
+                    <ul>
+                        <li>✓ Todo Premium +</li>
+                        <li>✓ Tours privados</li>
+                        <li>✓ Eventos VIP semanales</li>
+                        <li>✓ Contenido 4K</li>
+                    </ul>
+                    <button class="btn btn-primary">Mejorar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal('infoModal')">&times;</span>
+            <div id="infoContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let tiempoInicio = Date.now();
+        let zonasVisitadasSet = new Set();
+        let puntos = 0;
+        let nivelUsuario = 'free';
+
+        window.onload = function() {
+            const sesion = JSON.parse(localStorage.getItem('sesionActual') || '{}');
+            
+            if (sesion.tipo !== 'turista') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Cargar datos del usuario
+            document.getElementById('userName').textContent = sesion.nombreAvatar || sesion.nombre;
+            nivelUsuario = sesion.nivel || 'free';
+            
+            // Actualizar badge de membresía
+            const badges = {
+                free: { icon: '🆓', text: 'FREE', class: 'free' },
+                premium: { icon: '⭐', text: 'PREMIUM', class: 'premium' },
+                vip: { icon: '💎', text: 'VIP', class: 'vip' }
+            };
+            
+            const badge = badges[nivelUsuario];
+            document.getElementById('membershipBadge').className = `membership-display ${badge.class}`;
+            document.getElementById('membershipLevel').innerHTML = `${badge.icon} ${badge.text}`;
+            document.getElementById('userMembership').textContent = `Plan ${badge.text}`;
+
+            // Mostrar avatar si tiene imagen
+            if (sesion.avatarImage) {
+                document.querySelector('.avatar-img').innerHTML = `<img src="${sesion.avatarImage}" alt="Avatar">`;
+            }
+
+            // Habilitar botón de guía si es premium o vip
+            if (nivelUsuario === 'premium' || nivelUsuario === 'vip') {
+                document.getElementById('guideBtn').disabled = false;
+                document.getElementById('guideBtn').classList.add('enabled');
+            }
+
+            // Ocultar upgrade section si es VIP
+            if (nivelUsuario === 'vip') {
+                document.getElementById('upgradeSection').style.display = 'none';
+            }
+
+            // Cargar eventos según nivel
+            cargarEventos();
+
+            // Iniciar temporizador
+            iniciarTemporizador();
+
+            // Desbloquear zonas según nivel
+            desbloquearZonas();
+        };
+
+        function desbloquearZonas() {
+            if (nivelUsuario === 'premium' || nivelUsuario === 'vip') {
+                document.querySelectorAll('.zone-item-tour.locked[onclick*="premium"]').forEach(zone => {
+                    zone.classList.remove('locked');
+                    zone.classList.add('accessible');
+                    zone.querySelector('.zone-lock').textContent = '→';
+                    zone.onclick = function() {
+                        const zoneName = this.querySelector('h4').textContent;
+                        const zoneId = zoneName.toLowerCase().replace(/\s/g, '');
+                        visitarZona(zoneId, 'premium');
+                    };
+                });
+            }
+
+            if (nivelUsuario === 'vip') {
+                document.querySelectorAll('.zone-item-tour.locked[onclick*="vip"]').forEach(zone => {
+                    zone.classList.remove('locked');
+                    zone.classList.add('accessible');
+                    zone.querySelector('.zone-lock').textContent = '→';
+                    zone.onclick = function() {
+                        visitarZona('cenote', 'vip');
+                    };
+                });
+            }
+        }
+
+        function visitarZona(zonaId, nivelRequerido) {
+            const zonas = {
+                kukulkan: {
+                    nombre: 'Pirámide de Kukulcán',
+                    descripcion: 'El Castillo, la estructura más icónica de Chichen Itzá. Durante los equinoccios, el sol crea la ilusión de una serpiente descendiendo por la escalinata.',
+                    puntos: 100
+                },
+                pelota: {
+                    nombre: 'Gran Juego de Pelota',
+                    descripcion: 'La cancha de juego de pelota más grande de Mesoamérica, con 168 metros de longitud y una acústica excepcional.',
+                    puntos: 100
+                },
+                guerreros: {
+                    nombre: 'Templo de los Guerreros',
+                    descripcion: 'Impresionante complejo con más de 200 columnas talladas representando guerreros mayas.',
+                    puntos: 150
+                },
+                caracol: {
+                    nombre: 'El Caracol (Observatorio)',
+                    descripcion: 'Torre circular utilizada como observatorio astronómico para seguir el movimiento de Venus.',
+                    puntos: 150
+                },
+                monjas: {
+                    nombre: 'Las Monjas',
+                    descripcion: 'Complejo de edificios con elaborada decoración en estilo arquitectónico Puuc.',
+                    puntos: 150
+                },
+                cenote: {
+                    nombre: 'Cenote Sagrado',
+                    descripcion: 'Pozo natural sagrado de 60 metros de diámetro utilizado para ceremonias religiosas.',
+                    puntos: 200
+                }
+            };
+
+            const zona = zonas[zonaId];
+            if (!zona) return;
+
+            // Actualizar escena
+            document.getElementById('zoneName').textContent = zona.nombre;
+            document.getElementById('zoneDescription').textContent = zona.descripcion;
+
+            // Agregar zona visitada
+            if (!zonasVisitadasSet.has(zonaId)) {
+                zonasVisitadasSet.add(zonaId);
+                puntos += zona.puntos;
+                mostrarNotificacion(`¡+${zona.puntos} puntos! Has visitado ${zona.nombre}`, 'success');
+            }
+
+            // Actualizar stats
+            document.getElementById('zonasVisitadas').textContent = `${zonasVisitadasSet.size}/6`;
+            document.getElementById('puntosUsuario').textContent = puntos;
+        }
+
+        function verificarAcceso(zonaId, nivelRequerido) {
+            if (nivelRequerido === 'premium' && (nivelUsuario === 'premium' || nivelUsuario === 'vip')) {
+                visitarZona(zonaId, nivelRequerido);
+                return;
+            }
+
+            if (nivelRequerido === 'vip' && nivelUsuario === 'vip') {
+                visitarZona(zonaId, nivelRequerido);
+                return;
+            }
+
+            // Mostrar modal de upgrade
+            const mensajes = {
+                premium: 'Esta zona requiere una membresía Premium o superior para acceder.',
+                vip: 'Esta zona es exclusiva para miembros VIP.'
+            };
+
+            document.getElementById('modalMessage').textContent = mensajes[nivelRequerido];
+            document.getElementById('upgradeModal').style.display = 'block';
+        }
+
+        function mostrarPlanes() {
+            document.getElementById('upgradeModal').style.display = 'block';
+        }
+
+        function cargarEventos() {
+            const eventsList = document.getElementById('eventsList');
+            
+            if (nivelUsuario === 'free') {
+                eventsList.innerHTML = '<p class="no-events">Mejora a Premium para acceder a eventos exclusivos</p>';
+            } else if (nivelUsuario === 'premium') {
+                eventsList.innerHTML = `
+                    <div class="event-mini">
+                        <strong>Taller de Historia Maya</strong>
+                        <small>22 Nov - 16:00</small>
+                    </div>
+                    <div class="event-mini">
+                        <strong>Tour Familiar</strong>
+                        <small>25 Nov - 10:00</small>
+                    </div>
+                `;
+            } else if (nivelUsuario === 'vip') {
+                eventsList.innerHTML = `
+                    <div class="event-mini vip">
+                        <strong>Tour Nocturno VIP</strong>
+                        <small>20 Nov - 20:00</small>
+                    </div>
+                    <div class="event-mini vip">
+                        <strong>Sesión con Arqueólogo</strong>
+                        <small>23 Nov - 18:00</small>
+                    </div>
+                `;
+            }
+        }
+
+        function iniciarTemporizador() {
+            setInterval(() => {
+                const transcurrido = Math.floor((Date.now() - tiempoInicio) / 1000);
+                const horas = Math.floor(transcurrido / 3600);
+                const minutos = Math.floor((transcurrido % 3600) / 60);
+                document.getElementById('tiempoTotal').textContent = `${horas}h ${minutos}m`;
+            }, 60000); // Actualizar cada minuto
+        }
+
+        function moverAvatar(direccion) {
+            console.log('Moviendo:', direccion);
+            // Lógica de movimiento
+        }
+
+        function tomarFoto() {
+            mostrarNotificacion('📷 Foto guardada en tu galería', 'success');
+        }
+
+        function mostrarMapa() {
+            alert('🗺️ Mapa interactivo (función en desarrollo)');
+        }
+
+        function mostrarInfo() {
+            const zonaNombre = document.getElementById('zoneName').textContent;
+            document.getElementById('infoContent').innerHTML = `
+                <h2>${zonaNombre}</h2>
+                <p>Información detallada sobre esta zona...</p>
+            `;
+            document.getElementById('infoModal').style.display = 'block';
+        }
+
+        function abrirChat() {
+            alert('💬 Chat (función en desarrollo)');
+        }
+
+        function solicitarGuia() {
+            if (nivelUsuario === 'free') {
+                alert('Esta función requiere membresía Premium o superior');
+                return;
+            }
+            alert('👨‍🏫 Solicitando guía turístico...');
+        }
+
+        function verPerfil() {
+            alert('Perfil de usuario (función en desarrollo)');
+        }
+
+        function cerrarSesion() {
+            if (confirm('¿Deseas cerrar sesión?')) {
+                localStorage.removeItem('sesionActual');
+                window.location.href = 'login.html';
+            }
+        }
+
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Cerrar modales al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

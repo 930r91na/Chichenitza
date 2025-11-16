@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Chichen Itzá</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🏛️</span>
+                <h2>Admin Panel</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="cambiarSeccionAdmin('dashboard')">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('turistas')">
+                    <span class="nav-icon">👥</span>
+                    <span>Turistas</span>
+                </a>
+                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('guias')">
+                    <span class="nav-icon">👨‍🏫</span>
+                    <span>Guías Turísticos</span>
+                </a>
+                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('eventos')">
+                    <span class="nav-icon">📅</span>
+                    <span>Eventos</span>
+                </a>
+                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('zonas')">
+                    <span class="nav-icon">🗺️</span>
+                    <span>Zonas</span>
+                </a>
+                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('servidores')">
+                    <span class="nav-icon">🖥️</span>
+                    <span>Servidores</span>
+                </a>
+                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('configuracion')">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-secondary btn-full" onclick="cerrarSesion()">
+                    🚪 Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1 id="sectionTitle">Dashboard General</h1>
+                    <p class="header-breadcrumb">Panel / <span id="breadcrumb">Dashboard</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="admin-user-info">
+                        <span class="user-avatar">👤</span>
+                        <div>
+                            <div class="user-name" id="adminName">Admin Demo</div>
+                            <div class="user-role">Administrador</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="admin-section active">
+                    <div class="stats-overview">
+                        <div class="stat-card-dash">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-info">
+                                <span class="stat-number">1,248</span>
+                                <span class="stat-label">Total Turistas</span>
+                            </div>
+                            <span class="stat-trend up">↑ 15%</span>
+                        </div>
+                        
+                        <div class="stat-card-dash">
+                            <div class="stat-icon">👨‍🏫</div>
+                            <div class="stat-info">
+                                <span class="stat-number">24</span>
+                                <span class="stat-label">Guías Activos</span>
+                            </div>
+                            <span class="stat-trend up">↑ 3</span>
+                        </div>
+                        
+                        <div class="stat-card-dash">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-info">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Eventos Programados</span>
+                            </div>
+                            <span class="stat-trend">→</span>
+                        </div>
+                        
+                        <div class="stat-card-dash">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-info">
+                                <span class="stat-number">$45.2K</span>
+                                <span class="stat-label">Ingresos del Mes</span>
+                            </div>
+                            <span class="stat-trend up">↑ 22%</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Actividad Reciente</h3>
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <span class="activity-icon">👤</span>
+                                    <div class="activity-details">
+                                        <p><strong>Nuevo turista registrado</strong></p>
+                                        <small>Juan Pérez - Plan Premium</small>
+                                    </div>
+                                    <span class="activity-time">Hace 5 min</span>
+                                </div>
+                                <div class="activity-item">
+                                    <span class="activity-icon">👨‍🏫</span>
+                                    <div class="activity-details">
+                                        <p><strong>Guía inició tour</strong></p>
+                                        <small>María García - Grupo de 15</small>
+                                    </div>
+                                    <span class="activity-time">Hace 12 min</span>
+                                </div>
+                                <div class="activity-item">
+                                    <span class="activity-icon">📅</span>
+                                    <div class="activity-details">
+                                        <p><strong>Evento publicado</strong></p>
+                                        <small>Tour Nocturno VIP - Viernes 20:00</small>
+                                    </div>
+                                    <span class="activity-time">Hace 1 hora</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h3>Tours en Vivo</h3>
+                            <div class="live-tours">
+                                <div class="live-tour-item">
+                                    <span class="live-badge">🔴 EN VIVO</span>
+                                    <p><strong>Pirámide de Kukulcán</strong></p>
+                                    <small>Guía: Dr. López | 23 participantes</small>
+                                </div>
+                                <div class="live-tour-item">
+                                    <span class="live-badge">🔴 EN VIVO</span>
+                                    <p><strong>Cenote Sagrado</strong></p>
+                                    <small>Guía: Prof. Martínez | 8 participantes</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Guías Section -->
+                <section id="guias-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Gestión de Guías Turísticos</h2>
+                        <button class="btn btn-primary" onclick="abrirModalGuia()">
+                            + Agregar Guía
+                        </button>
+                    </div>
+
+                    <div class="filters-bar">
+                        <input type="text" placeholder="Buscar guías..." class="filter-input">
+                        <select class="filter-select">
+                            <option value="">Todos los estados</option>
+                            <option value="activo">Activos</option>
+                            <option value="inactivo">Inactivos</option>
+                            <option value="tour">En tour</option>
+                        </select>
+                        <select class="filter-select">
+                            <option value="">Todas las especialidades</option>
+                            <option value="historia">Historia Maya</option>
+                            <option value="arqueologia">Arqueología</option>
+                            <option value="arquitectura">Arquitectura</option>
+                        </select>
+                    </div>
+
+                    <div class="guias-grid">
+                        <div class="guia-card">
+                            <div class="guia-header">
+                                <div class="guia-avatar">👨‍🏫</div>
+                                <div class="guia-status online">En línea</div>
+                            </div>
+                            <h3>Dr. Carlos López</h3>
+                            <p class="guia-specialty">Especialidad: Historia Maya</p>
+                            <div class="guia-stats">
+                                <div class="stat">
+                                    <span class="stat-value">245</span>
+                                    <span class="stat-label">Tours</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">4.9</span>
+                                    <span class="stat-label">Rating</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">2,341</span>
+                                    <span class="stat-label">Turistas</span>
+                                </div>
+                            </div>
+                            <div class="guia-actions">
+                                <button class="btn-small btn-secondary">Editar</button>
+                                <button class="btn-small">Ver Perfil</button>
+                            </div>
+                        </div>
+
+                        <div class="guia-card">
+                            <div class="guia-header">
+                                <div class="guia-avatar">👩‍🏫</div>
+                                <div class="guia-status busy">En tour</div>
+                            </div>
+                            <h3>Prof. María García</h3>
+                            <p class="guia-specialty">Especialidad: Arqueología</p>
+                            <div class="guia-stats">
+                                <div class="stat">
+                                    <span class="stat-value">189</span>
+                                    <span class="stat-label">Tours</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">4.8</span>
+                                    <span class="stat-label">Rating</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">1,856</span>
+                                    <span class="stat-label">Turistas</span>
+                                </div>
+                            </div>
+                            <div class="guia-actions">
+                                <button class="btn-small btn-secondary">Editar</button>
+                                <button class="btn-small">Ver Perfil</button>
+                            </div>
+                        </div>
+
+                        <div class="guia-card">
+                            <div class="guia-header">
+                                <div class="guia-avatar">👨‍🏫</div>
+                                <div class="guia-status offline">Desconectado</div>
+                            </div>
+                            <h3>Arq. Roberto Sánchez</h3>
+                            <p class="guia-specialty">Especialidad: Arquitectura</p>
+                            <div class="guia-stats">
+                                <div class="stat">
+                                    <span class="stat-value">156</span>
+                                    <span class="stat-label">Tours</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">4.7</span>
+                                    <span class="stat-label">Rating</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">1,432</span>
+                                    <span class="stat-label">Turistas</span>
+                                </div>
+                            </div>
+                            <div class="guia-actions">
+                                <button class="btn-small btn-secondary">Editar</button>
+                                <button class="btn-small">Ver Perfil</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Eventos Section -->
+                <section id="eventos-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Gestión de Eventos</h2>
+                        <button class="btn btn-primary" onclick="abrirModalEvento()">
+                            + Crear Evento
+                        </button>
+                    </div>
+
+                    <div class="eventos-calendar">
+                        <h3>Próximos Eventos</h3>
+                        <div class="eventos-list">
+                            <div class="evento-card">
+                                <div class="evento-date">
+                                    <div class="date-day">20</div>
+                                    <div class="date-month">NOV</div>
+                                </div>
+                                <div class="evento-info">
+                                    <h4>Tour Nocturno VIP</h4>
+                                    <p>🕐 20:00 - 22:00 | 👨‍🏫 Dr. López | 💎 Solo VIP</p>
+                                    <p class="evento-description">Experiencia exclusiva bajo las estrellas con arqueólogo experto</p>
+                                    <div class="evento-stats">
+                                        <span>👥 12/15 inscritos</span>
+                                        <span class="evento-status disponible">Disponible</span>
+                                    </div>
+                                </div>
+                                <div class="evento-actions">
+                                    <button class="btn-icon" title="Editar">✏️</button>
+                                    <button class="btn-icon" title="Eliminar">🗑️</button>
+                                </div>
+                            </div>
+
+                            <div class="evento-card">
+                                <div class="evento-date">
+                                    <div class="date-day">22</div>
+                                    <div class="date-month">NOV</div>
+                                </div>
+                                <div class="evento-info">
+                                    <h4>Taller de Historia Maya</h4>
+                                    <p>🕐 16:00 - 18:00 | 👩‍🏫 Prof. García | 🌟 Premium+</p>
+                                    <p class="evento-description">Sesión interactiva sobre la civilización maya</p>
+                                    <div class="evento-stats">
+                                        <span>👥 30/30 inscritos</span>
+                                        <span class="evento-status completo">Completo</span>
+                                    </div>
+                                </div>
+                                <div class="evento-actions">
+                                    <button class="btn-icon" title="Editar">✏️</button>
+                                    <button class="btn-icon" title="Eliminar">🗑️</button>
+                                </div>
+                            </div>
+
+                            <div class="evento-card">
+                                <div class="evento-date">
+                                    <div class="date-day">25</div>
+                                    <div class="date-month">NOV</div>
+                                </div>
+                                <div class="evento-info">
+                                    <h4>Tour Familiar</h4>
+                                    <p>🕐 10:00 - 12:00 | 👨‍🏫 Guía Junior | 🆓 Gratis</p>
+                                    <p class="evento-description">Recorrido especial para familias con niños</p>
+                                    <div class="evento-stats">
+                                        <span>👥 45/50 inscritos</span>
+                                        <span class="evento-status disponible">Disponible</span>
+                                    </div>
+                                </div>
+                                <div class="evento-actions">
+                                    <button class="btn-icon" title="Editar">✏️</button>
+                                    <button class="btn-icon" title="Eliminar">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Other sections placeholder -->
+                <section id="turistas-section" class="admin-section">
+                    <h2>Gestión de Turistas</h2>
+                    <p>Contenido de gestión de turistas...</p>
+                </section>
+
+                <section id="zonas-section" class="admin-section">
+                    <h2>Gestión de Zonas</h2>
+                    <p>Contenido de gestión de zonas...</p>
+                </section>
+
+                <section id="servidores-section" class="admin-section">
+                    <h2>Monitoreo de Servidores</h2>
+                    <p>Contenido de servidores...</p>
+                </section>
+
+                <section id="configuracion-section" class="admin-section">
+                    <h2>Configuración del Sistema</h2>
+                    <p>Contenido de configuración...</p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para agregar guía -->
+    <div id="modalGuia" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalGuia()">&times;</span>
+            <h2>Agregar Nuevo Guía</h2>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" placeholder="Dr. Juan Pérez">
+                </div>
+                <div class="form-group">
+                    <label>Especialidad</label>
+                    <select>
+                        <option>Historia Maya</option>
+                        <option>Arqueología</option>
+                        <option>Arquitectura</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="guia@email.com">
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para crear evento -->
+    <div id="modalEvento" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalEvento()">&times;</span>
+            <h2>Crear Nuevo Evento</h2>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label>Nombre del Evento</label>
+                    <input type="text" placeholder="Tour Nocturno">
+                </div>
+                <div class="form-group">
+                    <label>Fecha y Hora</label>
+                    <input type="datetime-local">
+                </div>
+                <div class="form-group">
+                    <label>Guía Asignado</label>
+                    <select>
+                        <option>Dr. Carlos López</option>
+                        <option>Prof. María García</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nivel de Acceso</label>
+                    <select>
+                        <option>Todos</option>
+                        <option>Premium</option>
+                        <option>VIP</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Evento</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Verificar autenticación
+        window.onload = function() {
+            const sesion = JSON.parse(localStorage.getItem('sesionActual') || '{}');
+            if (sesion.tipo !== 'admin') {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('adminName').textContent = sesion.nombre || 'Admin';
+        };
+
+        function cambiarSeccionAdmin(seccion) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(seccion + '-section').classList.add('active');
+            event.target.closest('.nav-item').classList.add('active');
+            
+            const titles = {
+                dashboard: 'Dashboard General',
+                turistas: 'Gestión de Turistas',
+                guias: 'Gestión de Guías Turísticos',
+                eventos: 'Gestión de Eventos',
+                zonas: 'Gestión de Zonas',
+                servidores: 'Monitoreo de Servidores',
+                configuracion: 'Configuración del Sistema'
+            };
+            
+            document.getElementById('sectionTitle').textContent = titles[seccion];
+            document.getElementById('breadcrumb').textContent = titles[seccion];
+        }
+
+        function abrirModalGuia() {
+            document.getElementById('modalGuia').style.display = 'block';
+        }
+
+        function cerrarModalGuia() {
+            document.getElementById('modalGuia').style.display = 'none';
+        }
+
+        function abrirModalEvento() {
+            document.getElementById('modalEvento').style.display = 'block';
+        }
+
+        function cerrarModalEvento() {
+            document.getElementById('modalEvento').style.display = 'none';
+        }
+
+        function cerrarSesion() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                localStorage.removeItem('sesionActual');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>

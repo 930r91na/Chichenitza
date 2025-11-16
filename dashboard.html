@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Chichen Itzá Virtual</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <h1>🏛️ Chichen Itzá Virtual</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="registro.html">Registro</a></li>
+                    <li><a href="tour.html">Tour Virtual</a></li>
+                    <li><a href="dashboard.html" class="active">Panel de Control</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard-page">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>Panel de Control del Sistema</h2>
+                <p>Gestión de participantes, servidores y estadísticas</p>
+            </div>
+
+            <!-- Estadísticas en tiempo real -->
+            <div class="stats-overview">
+                <div class="stat-card-dash">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <span class="stat-number">248</span>
+                        <span class="stat-label">Usuarios Activos</span>
+                    </div>
+                    <span class="stat-trend up">↑ 12%</span>
+                </div>
+                
+                <div class="stat-card-dash">
+                    <div class="stat-icon">🎫</div>
+                    <div class="stat-info">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label">Tours en Curso</span>
+                    </div>
+                    <span class="stat-trend">→ 0%</span>
+                </div>
+                
+                <div class="stat-card-dash">
+                    <div class="stat-icon">🖥️</div>
+                    <div class="stat-info">
+                        <span class="stat-number">6/6</span>
+                        <span class="stat-label">Servidores Activos</span>
+                    </div>
+                    <span class="stat-trend up">✓</span>
+                </div>
+                
+                <div class="stat-card-dash">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-info">
+                        <span class="stat-number">45ms</span>
+                        <span class="stat-label">Latencia Promedio</span>
+                    </div>
+                    <span class="stat-trend down">↓ 5%</span>
+                </div>
+            </div>
+
+            <!-- Tabs de navegación -->
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" onclick="cambiarTab('participantes')">Participantes</button>
+                <button class="tab-btn" onclick="cambiarTab('servidores')">Servidores</button>
+                <button class="tab-btn" onclick="cambiarTab('zonas')">Zonas</button>
+                <button class="tab-btn" onclick="cambiarTab('estadisticas')">Estadísticas</button>
+            </div>
+
+            <!-- Contenido de tabs -->
+            <div class="tab-content">
+                <!-- Tab Participantes -->
+                <div id="participantes-tab" class="tab-panel active">
+                    <div class="panel-header">
+                        <h3>Gestión de Participantes</h3>
+                        <button class="btn btn-primary" onclick="abrirFormulario('agregar')">+ Agregar Participante</button>
+                    </div>
+                    
+                    <div class="filters">
+                        <input type="text" id="buscarParticipante" placeholder="Buscar por nombre o email..." onkeyup="filtrarParticipantes()">
+                        <select id="filtroRol" onchange="filtrarParticipantes()">
+                            <option value="">Todos los roles</option>
+                            <option value="visitante">Visitante</option>
+                            <option value="guia">Guía</option>
+                            <option value="investigador">Investigador</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                        <select id="filtroEstado" onchange="filtrarParticipantes()">
+                            <option value="">Todos los estados</option>
+                            <option value="online">En línea</option>
+                            <option value="offline">Desconectado</option>
+                            <option value="tour">En tour</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Avatar</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th>Servidor</th>
+                                    <th>Última Conexión</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="participantesTable">
+                                <tr>
+                                    <td>🧑‍🎓</td>
+                                    <td>Juan Pérez</td>
+                                    <td>juan.perez@email.com</td>
+                                    <td><span class="badge badge-visitante">Visitante</span></td>
+                                    <td><span class="status-badge online">En línea</span></td>
+                                    <td>MX-1</td>
+                                    <td>Hace 5 min</td>
+                                    <td>
+                                        <button class="btn-icon" onclick="editarParticipante(1)" title="Editar">✏️</button>
+                                        <button class="btn-icon" onclick="eliminarParticipante(1)" title="Eliminar">🗑️</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>👨‍🏫</td>
+                                    <td>María García</td>
+                                    <td>maria.garcia@email.com</td>
+                                    <td><span class="badge badge-guia">Guía</span></td>
+                                    <td><span class="status-badge online">En tour</span></td>
+                                    <td>MX-2</td>
+                                    <td>Hace 2 min</td>
+                                    <td>
+                                        <button class="btn-icon" onclick="editarParticipante(2)" title="Editar">✏️</button>
+                                        <button class="btn-icon" onclick="eliminarParticipante(2)" title="Eliminar">🗑️</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>👨‍🔬</td>
+                                    <td>Carlos Rodríguez</td>
+                                    <td>carlos.r@email.com</td>
+                                    <td><span class="badge badge-investigador">Investigador</span></td>
+                                    <td><span class="status-badge offline">Desconectado</span></td>
+                                    <td>US-1</td>
+                                    <td>Hace 1 hora</td>
+                                    <td>
+                                        <button class="btn-icon" onclick="editarParticipante(3)" title="Editar">✏️</button>
+                                        <button class="btn-icon" onclick="eliminarParticipante(3)" title="Eliminar">🗑️</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>👤</td>
+                                    <td>Ana Martínez</td>
+                                    <td>ana.m@email.com</td>
+                                    <td><span class="badge badge-visitante">Visitante</span></td>
+                                    <td><span class="status-badge online">En línea</span></td>
+                                    <td>EU-1</td>
+                                    <td>Hace 10 min</td>
+                                    <td>
+                                        <button class="btn-icon" onclick="editarParticipante(4)" title="Editar">✏️</button>
+                                        <button class="btn-icon" onclick="eliminarParticipante(4)" title="Eliminar">🗑️</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab Servidores -->
+                <div id="servidores-tab" class="tab-panel">
+                    <div class="panel-header">
+                        <h3>Estado de Servidores Distribuidos</h3>
+                        <button class="btn btn-secondary" onclick="refrescarServidores()">🔄 Refrescar</button>
+                    </div>
+
+                    <div class="servers-grid">
+                        <div class="server-card">
+                            <div class="server-header">
+                                <h4>🖥️ MX-1 (Mérida)</h4>
+                                <span class="status-badge online">Operativo</span>
+                            </div>
+                            <div class="server-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">CPU</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 45%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">45%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RAM</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 62%; background: #fbbf24;"></div>
+                                    </div>
+                                    <span class="metric-value">62%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Red</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 35%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">35%</span>
+                                </div>
+                            </div>
+                            <div class="server-stats">
+                                <div class="server-stat">
+                                    <span>👥 Usuarios: <strong>82</strong></span>
+                                </div>
+                                <div class="server-stat">
+                                    <span>⚡ Latencia: <strong>25ms</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="server-card">
+                            <div class="server-header">
+                                <h4>🖥️ MX-2 (Cancún)</h4>
+                                <span class="status-badge online">Operativo</span>
+                            </div>
+                            <div class="server-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">CPU</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 58%; background: #fbbf24;"></div>
+                                    </div>
+                                    <span class="metric-value">58%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RAM</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 71%; background: #f87171;"></div>
+                                    </div>
+                                    <span class="metric-value">71%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Red</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 48%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">48%</span>
+                                </div>
+                            </div>
+                            <div class="server-stats">
+                                <div class="server-stat">
+                                    <span>👥 Usuarios: <strong>95</strong></span>
+                                </div>
+                                <div class="server-stat">
+                                    <span>⚡ Latencia: <strong>32ms</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="server-card">
+                            <div class="server-header">
+                                <h4>🖥️ US-1 (Dallas)</h4>
+                                <span class="status-badge online">Operativo</span>
+                            </div>
+                            <div class="server-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">CPU</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 38%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">38%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RAM</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 54%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">54%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Red</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 42%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">42%</span>
+                                </div>
+                            </div>
+                            <div class="server-stats">
+                                <div class="server-stat">
+                                    <span>👥 Usuarios: <strong>45</strong></span>
+                                </div>
+                                <div class="server-stat">
+                                    <span>⚡ Latencia: <strong>58ms</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="server-card">
+                            <div class="server-header">
+                                <h4>🖥️ US-2 (Miami)</h4>
+                                <span class="status-badge warning">Mantenimiento</span>
+                            </div>
+                            <div class="server-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">CPU</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 12%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">12%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RAM</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 18%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">18%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Red</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 8%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">8%</span>
+                                </div>
+                            </div>
+                            <div class="server-stats">
+                                <div class="server-stat">
+                                    <span>👥 Usuarios: <strong>8</strong></span>
+                                </div>
+                                <div class="server-stat">
+                                    <span>⚡ Latencia: <strong>125ms</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="server-card">
+                            <div class="server-header">
+                                <h4>🖥️ EU-1 (Madrid)</h4>
+                                <span class="status-badge online">Operativo</span>
+                            </div>
+                            <div class="server-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">CPU</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 28%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">28%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RAM</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 42%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">42%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Red</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 31%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">31%</span>
+                                </div>
+                            </div>
+                            <div class="server-stats">
+                                <div class="server-stat">
+                                    <span>👥 Usuarios: <strong>12</strong></span>
+                                </div>
+                                <div class="server-stat">
+                                    <span>⚡ Latencia: <strong>95ms</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="server-card">
+                            <div class="server-header">
+                                <h4>🖥️ SA-1 (Buenos Aires)</h4>
+                                <span class="status-badge online">Operativo</span>
+                            </div>
+                            <div class="server-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">CPU</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 33%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">33%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">RAM</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 48%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">48%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Red</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 39%; background: #4ade80;"></div>
+                                    </div>
+                                    <span class="metric-value">39%</span>
+                                </div>
+                            </div>
+                            <div class="server-stats">
+                                <div class="server-stat">
+                                    <span>👥 Usuarios: <strong>6</strong></span>
+                                </div>
+                                <div class="server-stat">
+                                    <span>⚡ Latencia: <strong>168ms</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Zonas -->
+                <div id="zonas-tab" class="tab-panel">
+                    <div class="panel-header">
+                        <h3>Gestión de Zonas Geográficas</h3>
+                        <button class="btn btn-primary" onclick="abrirFormulario('zona')">+ Agregar Zona</button>
+                    </div>
+
+                    <div class="zones-management">
+                        <div class="zone-manage-card">
+                            <div class="zone-manage-header">
+                                <div class="zone-manage-icon">🏛️</div>
+                                <div>
+                                    <h4>Pirámide de Kukulcán</h4>
+                                    <span class="zone-capacity">Capacidad: 50 usuarios</span>
+                                </div>
+                            </div>
+                            <div class="zone-manage-body">
+                                <div class="zone-stat">
+                                    <span>👥 Usuarios actuales:</span>
+                                    <strong>32/50</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🎫 Tours activos:</span>
+                                    <strong>4</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🔓 Acceso:</span>
+                                    <strong>Todos los roles</strong>
+                                </div>
+                            </div>
+                            <div class="zone-manage-actions">
+                                <button class="btn-small btn-secondary">Editar</button>
+                                <button class="btn-small">Ver Detalles</button>
+                            </div>
+                        </div>
+
+                        <div class="zone-manage-card">
+                            <div class="zone-manage-header">
+                                <div class="zone-manage-icon">⚔️</div>
+                                <div>
+                                    <h4>Templo de los Guerreros</h4>
+                                    <span class="zone-capacity">Capacidad: 40 usuarios</span>
+                                </div>
+                            </div>
+                            <div class="zone-manage-body">
+                                <div class="zone-stat">
+                                    <span>👥 Usuarios actuales:</span>
+                                    <strong>18/40</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🎫 Tours activos:</span>
+                                    <strong>2</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🔓 Acceso:</span>
+                                    <strong>Todos los roles</strong>
+                                </div>
+                            </div>
+                            <div class="zone-manage-actions">
+                                <button class="btn-small btn-secondary">Editar</button>
+                                <button class="btn-small">Ver Detalles</button>
+                            </div>
+                        </div>
+
+                        <div class="zone-manage-card">
+                            <div class="zone-manage-header">
+                                <div class="zone-manage-icon">💧</div>
+                                <div>
+                                    <h4>Cenote Sagrado</h4>
+                                    <span class="zone-capacity">Capacidad: 20 usuarios</span>
+                                </div>
+                            </div>
+                            <div class="zone-manage-body">
+                                <div class="zone-stat">
+                                    <span>👥 Usuarios actuales:</span>
+                                    <strong>8/20</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🎫 Tours activos:</span>
+                                    <strong>1</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🔒 Acceso:</span>
+                                    <strong>Requiere guía</strong>
+                                </div>
+                            </div>
+                            <div class="zone-manage-actions">
+                                <button class="btn-small btn-secondary">Editar</button>
+                                <button class="btn-small">Ver Detalles</button>
+                            </div>
+                        </div>
+
+                        <div class="zone-manage-card">
+                            <div class="zone-manage-header">
+                                <div class="zone-manage-icon">⚽</div>
+                                <div>
+                                    <h4>Juego de Pelota</h4>
+                                    <span class="zone-capacity">Capacidad: 60 usuarios</span>
+                                </div>
+                            </div>
+                            <div class="zone-manage-body">
+                                <div class="zone-stat">
+                                    <span>👥 Usuarios actuales:</span>
+                                    <strong>45/60</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🎫 Tours activos:</span>
+                                    <strong>5</strong>
+                                </div>
+                                <div class="zone-stat">
+                                    <span>🔓 Acceso:</span>
+                                    <strong>Todos los roles</strong>
+                                </div>
+                            </div>
+                            <div class="zone-manage-actions">
+                                <button class="btn-small btn-secondary">Editar</button>
+                                <button class="btn-small">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Estadísticas -->
+                <div id="estadisticas-tab" class="tab-panel">
+                    <div class="panel-header">
+                        <h3>Estadísticas y Análisis</h3>
+                        <select id="periodoStats">
+                            <option value="today">Hoy</option>
+                            <option value="week">Esta Semana</option>
+                            <option value="month" selected>Este Mes</option>
+                            <option value="year">Este Año</option>
+                        </select>
+                    </div>
+
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h4>Visitantes por Día</h4>
+                            <div class="chart-placeholder">
+                                <div class="bar-chart">
+                                    <div class="bar" style="height: 60%;" title="Lun: 180"></div>
+                                    <div class="bar" style="height: 75%;" title="Mar: 225"></div>
+                                    <div class="bar" style="height: 85%;" title="Mié: 255"></div>
+                                    <div class="bar" style="height: 70%;" title="Jue: 210"></div>
+                                    <div class="bar" style="height: 95%;" title="Vie: 285"></div>
+                                    <div class="bar" style="height: 100%;" title="Sáb: 300"></div>
+                                    <div class="bar" style="height: 90%;" title="Dom: 270"></div>
+                                </div>
+                                <div class="chart-labels">
+                                    <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <h4>Distribución por Roles</h4>
+                            <div class="pie-chart">
+                                <div class="pie-segment visitante">Visitantes 65%</div>
+                                <div class="pie-segment guia">Guías 15%</div>
+                                <div class="pie-segment investigador">Investigadores 15%</div>
+                                <div class="pie-segment admin">Admins 5%</div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <h4>Zonas Más Visitadas</h4>
+                            <div class="ranking-list">
+                                <div class="ranking-item">
+                                    <span class="rank">1</span>
+                                    <span class="ranking-name">🏛️ Pirámide de Kukulcán</span>
+                                    <span class="ranking-value">1,245</span>
+                                </div>
+                                <div class="ranking-item">
+                                    <span class="rank">2</span>
+                                    <span class="ranking-name">⚽ Juego de Pelota</span>
+                                    <span class="ranking-value">892</span>
+                                </div>
+                                <div class="ranking-item">
+                                    <span class="rank">3</span>
+                                    <span class="ranking-name">⚔️ Templo de los Guerreros</span>
+                                    <span class="ranking-value">756</span>
+                                </div>
+                                <div class="ranking-item">
+                                    <span class="rank">4</span>
+                                    <span class="ranking-name">🔭 El Caracol</span>
+                                    <span class="ranking-value">634</span>
+                                </div>
+                                <div class="ranking-item">
+                                    <span class="rank">5</span>
+                                    <span class="ranking-name">💧 Cenote Sagrado</span>
+                                    <span class="ranking-value">487</span>
+                                </div>
+                                <div class="ranking-item">
+                                    <span class="rank">6</span>
+                                    <span class="ranking-name">🏰 Las Monjas</span>
+                                    <span class="ranking-value">423</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <h4>Conexiones por Servidor</h4>
+                            <div class="chart-placeholder">
+                                <div class="bar-chart horizontal">
+                                    <div class="h-bar-item">
+                                        <span class="h-bar-label">MX-1</span>
+                                        <div class="h-bar" style="width: 85%;"></div>
+                                        <span class="h-bar-value">82</span>
+                                    </div>
+                                    <div class="h-bar-item">
+                                        <span class="h-bar-label">MX-2</span>
+                                        <div class="h-bar" style="width: 95%;"></div>
+                                        <span class="h-bar-value">95</span>
+                                    </div>
+                                    <div class="h-bar-item">
+                                        <span class="h-bar-label">US-1</span>
+                                        <div class="h-bar" style="width: 45%;"></div>
+                                        <span class="h-bar-value">45</span>
+                                    </div>
+                                    <div class="h-bar-item">
+                                        <span class="h-bar-label">US-2</span>
+                                        <div class="h-bar" style="width: 8%;"></div>
+                                        <span class="h-bar-value">8</span>
+                                    </div>
+                                    <div class="h-bar-item">
+                                        <span class="h-bar-label">EU-1</span>
+                                        <div class="h-bar" style="width: 12%;"></div>
+                                        <span class="h-bar-value">12</span>
+                                    </div>
+                                    <div class="h-bar-item">
+                                        <span class="h-bar-label">SA-1</span>
+                                        <div class="h-bar" style="width: 6%;"></div>
+                                        <span class="h-bar-value">6</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Chichen Itzá Virtual Tours. Proyecto Académico - Sistemas Distribuidos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function cambiarTab(tabName) {
+            // Ocultar todos los paneles
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Desactivar todos los botones
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Activar el panel y botón correspondiente
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function abrirFormulario(tipo) {
+            alert(`Formulario de ${tipo} en desarrollo. Use el formulario de registro principal para agregar participantes.`);
+        }
+
+        function filtrarParticipantes() {
+            const busqueda = document.getElementById('buscarParticipante').value.toLowerCase();
+            const rol = document.getElementById('filtroRol').value;
+            const estado = document.getElementById('filtroEstado').value;
+            
+            console.log('Filtrando:', busqueda, rol, estado);
+            // Aquí iría la lógica de filtrado real
+        }
+
+        function editarParticipante(id) {
+            alert(`Editar participante ${id} - Funcionalidad en desarrollo`);
+        }
+
+        function eliminarParticipante(id) {
+            if (confirm('¿Está seguro de eliminar este participante?')) {
+                alert(`Participante ${id} eliminado`);
+            }
+        }
+
+        function refrescarServidores() {
+            alert('Actualizando estado de servidores...');
+            location.reload();
+        }
+    </script>
+</body>
+</html>
