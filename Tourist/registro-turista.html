@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Turista - Chichen Itzá Virtual Tours</title>
-    <link rel="stylesheet" href="../styles.css">
+    <!-- Modular CSS Imports -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/pages/register.css">
 </head>
 <body>
     <div class="register-background">
@@ -320,156 +322,14 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
-        let avatarImageData = null;
+    <!-- Core JavaScript -->
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/auth.js"></script>
+    <script src="../js/utils/notifications.js"></script>
+    <script src="../js/utils/validators.js"></script>
+    <script src="../js/main.js"></script>
 
-        function siguientePaso(paso) {
-            // Validar paso actual antes de avanzar
-            const pasoActual = document.querySelector('.form-step.active').dataset.step;
-            
-            if (paso > pasoActual) {
-                if (!validarPaso(pasoActual)) {
-                    return;
-                }
-            }
-
-            // Ocultar todos los pasos
-            document.querySelectorAll('.form-step').forEach(step => {
-                step.classList.remove('active');
-            });
-            document.querySelectorAll('.step').forEach(step => {
-                step.classList.remove('active');
-            });
-
-            // Mostrar paso seleccionado
-            document.querySelector(`.form-step[data-step="${paso}"]`).classList.add('active');
-            document.querySelector(`.step[data-step="${paso}"]`).classList.add('active');
-
-            // Scroll al inicio
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function validarPaso(paso) {
-            if (paso == 1) {
-                const nombre = document.getElementById('nombre').value;
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                const pais = document.getElementById('pais').value;
-
-                if (!nombre || !email || !password || !confirmPassword || !pais) {
-                    mostrarNotificacion('Por favor completa todos los campos obligatorios', 'error');
-                    return false;
-                }
-
-                if (password !== confirmPassword) {
-                    mostrarNotificacion('Las contraseñas no coinciden', 'error');
-                    return false;
-                }
-
-                if (password.length < 8) {
-                    mostrarNotificacion('La contraseña debe tener al menos 8 caracteres', 'error');
-                    return false;
-                }
-
-                if (!validarEmail(email)) {
-                    mostrarNotificacion('Por favor ingresa un email válido', 'error');
-                    return false;
-                }
-
-                return true;
-            }
-
-            if (paso == 2) {
-                const nombreAvatar = document.getElementById('nombreAvatar').value;
-                if (!nombreAvatar) {
-                    mostrarNotificacion('Por favor ingresa un nombre de usuario', 'error');
-                    return false;
-                }
-                return true;
-            }
-
-            return true;
-        }
-
-        function cargarImagenAvatar(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            // Validar tipo de archivo
-            if (!file.type.match('image.*')) {
-                mostrarNotificacion('Por favor selecciona una imagen válida', 'error');
-                return;
-            }
-
-            // Validar tamaño (5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                mostrarNotificacion('La imagen no debe superar los 5MB', 'error');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                avatarImageData = e.target.result;
-                
-                const preview = document.getElementById('avatarPreview');
-                preview.innerHTML = `<img src="${e.target.result}" alt="Avatar" class="avatar-image-uploaded">`;
-                
-                mostrarNotificacion('Imagen cargada correctamente', 'success');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function eliminarImagenAvatar() {
-            avatarImageData = null;
-            document.getElementById('avatarImage').value = '';
-            document.getElementById('avatarPreview').innerHTML = `
-                <div class="avatar-placeholder">
-                    <span class="placeholder-icon">📷</span>
-                    <p>Sube tu foto</p>
-                </div>
-            `;
-            mostrarNotificacion('Imagen eliminada', 'info');
-        }
-
-        document.getElementById('registroTuristaForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            if (!validarPaso(3)) {
-                return;
-            }
-
-            // Recopilar datos del formulario
-            const formData = new FormData(e.target);
-            const datos = Object.fromEntries(formData.entries());
-            datos.avatarImage = avatarImageData;
-            datos.fechaRegistro = new Date().toISOString();
-            datos.tipo = 'turista';
-
-            // Guardar en localStorage
-            localStorage.setItem('usuarioRegistrado', JSON.stringify(datos));
-
-            // Crear sesión
-            const sesion = {
-                tipo: 'turista',
-                email: datos.email,
-                nombre: datos.nombre,
-                nombreAvatar: datos.nombreAvatar,
-                nivel: datos.membresia,
-                avatarImage: datos.avatarImage,
-                fechaRegistro: datos.fechaRegistro
-            };
-            localStorage.setItem('sesionActual', JSON.stringify(sesion));
-
-            // Mostrar éxito
-            mostrarNotificacion('¡Registro exitoso! Bienvenido a Chichen Itzá Virtual Tours', 'success');
-
-            // Redirigir
-            setTimeout(() => {
-                window.location.href = 'tour-turista.html';
-            }, 2000);
-        });
-    </script>
+    <!-- Page-specific JavaScript -->
+    <script src="../js/pages/register.js"></script>
 </body>
 </html>

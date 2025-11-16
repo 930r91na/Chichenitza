@@ -1,0 +1,270 @@
+/* ============================================
+   LAYOUT COMPONENTS - Navbar, Footer, Containers
+   ============================================ */
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-stone) 0%, var(--secondary-obsidian) 100%);
+    padding: var(--space-md) 0;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.logo h1 {
+    color: var(--text-inverse);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin: 0;
+    font-family: var(--font-heading);
+}
+
+.logo-icon {
+    font-size: var(--text-3xl);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin: 0;
+}
+
+.nav-menu a {
+    color: var(--text-inverse);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    display: block;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background: var(--bg-overlay-light);
+    color: var(--primary-gold);
+}
+
+/* Mobile Menu */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--secondary-obsidian);
+        padding: var(--space-md);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .nav-menu.mobile-active {
+        display: flex;
+    }
+}
+
+/* Footer */
+footer {
+    background: var(--secondary-obsidian);
+    color: var(--text-inverse);
+    padding: var(--space-3xl) 0 var(--space-md);
+    margin-top: var(--space-3xl);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.footer-section h4 {
+    color: var(--primary-gold);
+    margin-bottom: var(--space-md);
+    font-family: var(--font-heading);
+}
+
+.footer-section p,
+.footer-section li {
+    color: var(--neutral-lighter);
+    margin-bottom: var(--space-sm);
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section a {
+    color: var(--neutral-lighter);
+    transition: color var(--transition-fast);
+}
+
+.footer-section a:hover {
+    color: var(--primary-gold);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--neutral-medium);
+    color: var(--neutral-light);
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-stone) 0%, var(--primary-sky) 100%);
+    color: var(--text-inverse);
+    padding: var(--space-3xl) var(--space-lg);
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../images/chichen-atardecer.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h2 {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-md);
+    color: var(--text-inverse);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-xl);
+    color: var(--text-inverse);
+    opacity: 0.95;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Section */
+.section {
+    padding: var(--space-3xl) 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.section-header h2 {
+    font-size: var(--text-4xl);
+    color: var(--primary-stone);
+    margin-bottom: var(--space-sm);
+}
+
+.section-header p {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+}
+
+/* Background Patterns */
+.bg-pattern-stone {
+    background-image: url('../images/stone-texture.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.bg-pattern-stone::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-overlay);
+    z-index: 0;
+}
+
+.bg-pattern-stone > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Grid Layouts */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+}
+
+@media (max-width: 1024px) {
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content h2 {
+        font-size: var(--text-3xl);
+    }
+
+    .section {
+        padding: var(--space-2xl) 0;
+    }
+}

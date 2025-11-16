@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo - Chichen Itzá</title>
-    <link rel="stylesheet" href="../styles.css">
+    <!-- Modular CSS Imports -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/pages/admin.css">
 </head>
 <body>
     <div class="admin-layout">
@@ -430,61 +432,14 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
-        // Verificar autenticación
-        window.onload = function() {
-            const sesion = JSON.parse(localStorage.getItem('sesionActual') || '{}');
-            if (sesion.tipo !== 'admin') {
-                window.location.href = '../login.html';
-                return;
-            }
-            document.getElementById('adminName').textContent = sesion.nombre || 'Admin';
-        };
+    <!-- Core JavaScript -->
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/auth.js"></script>
+    <script src="../js/utils/notifications.js"></script>
+    <script src="../js/utils/validators.js"></script>
+    <script src="../js/main.js"></script>
 
-        function cambiarSeccionAdmin(seccion) {
-            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            document.getElementById(seccion + '-section').classList.add('active');
-            event.target.closest('.nav-item').classList.add('active');
-            
-            const titles = {
-                dashboard: 'Dashboard General',
-                turistas: 'Gestión de Turistas',
-                guias: 'Gestión de Guías Turísticos',
-                eventos: 'Gestión de Eventos',
-                zonas: 'Gestión de Zonas',
-                servidores: 'Monitoreo de Servidores',
-                configuracion: 'Configuración del Sistema'
-            };
-            
-            document.getElementById('sectionTitle').textContent = titles[seccion];
-            document.getElementById('breadcrumb').textContent = titles[seccion];
-        }
-
-        function abrirModalGuia() {
-            document.getElementById('modalGuia').style.display = 'block';
-        }
-
-        function cerrarModalGuia() {
-            document.getElementById('modalGuia').style.display = 'none';
-        }
-
-        function abrirModalEvento() {
-            document.getElementById('modalEvento').style.display = 'block';
-        }
-
-        function cerrarModalEvento() {
-            document.getElementById('modalEvento').style.display = 'none';
-        }
-
-        function cerrarSesion() {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                localStorage.removeItem('sesionActual');
-                window.location.href = '../login.html';
-            }
-        }
-    </script>
+    <!-- Page-specific JavaScript -->
+    <script src="../js/pages/dashboard-admin.js"></script>
 </body>
 </html>

@@ -1,0 +1,331 @@
+/* ============================================
+   MODAL COMPONENTS
+   ============================================ */
+
+/* Modal Backdrop */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: var(--z-modal-backdrop);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(4px);
+    animation: fadeIn var(--transition-base);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background: var(--bg-primary);
+    margin: 5% auto;
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    animation: slideDown var(--transition-base);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border-light);
+}
+
+/* Modal Header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.modal-header h2 {
+    color: var(--primary-stone);
+    margin: 0;
+    font-family: var(--font-heading);
+}
+
+/* Modal Body */
+.modal-body {
+    margin-bottom: var(--space-lg);
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-light);
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    right: var(--space-lg);
+    top: var(--space-lg);
+    font-size: var(--text-3xl);
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all var(--transition-fast);
+    line-height: 1;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+}
+
+.close:hover {
+    color: var(--error);
+    background: var(--bg-secondary);
+}
+
+/* Modal Form */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* Zone Modal */
+.zone-modal-content {
+    text-align: center;
+}
+
+.zone-modal-icon {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-md);
+}
+
+.zone-modal-content h2 {
+    color: var(--primary-stone);
+    margin-bottom: var(--space-md);
+}
+
+.zone-modal-content p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.zone-modal-content h4 {
+    color: var(--primary-stone);
+    margin-bottom: var(--space-sm);
+    text-align: left;
+}
+
+.zone-modal-content ul {
+    text-align: left;
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-lg);
+}
+
+.zone-modal-content li {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+/* Info Box */
+.info-box,
+.info-box-login {
+    background: var(--bg-secondary);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary-gold);
+    margin-top: var(--space-lg);
+}
+
+.info-box h4,
+.info-box-login h4 {
+    color: var(--primary-stone);
+    margin-bottom: var(--space-sm);
+}
+
+.info-box p,
+.info-box-login p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* Success Message */
+.mensaje-exito {
+    background: var(--bg-primary);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    max-width: 600px;
+    margin: var(--space-2xl) auto;
+    border: 2px solid var(--success);
+}
+
+.mensaje-exito h3 {
+    color: var(--success);
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+}
+
+.mensaje-exito p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+}
+
+/* Alert Box */
+.alert {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background: rgba(95, 155, 109, 0.1);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.alert-warning {
+    background: rgba(212, 165, 116, 0.1);
+    border-color: var(--warning);
+    color: var(--warning);
+}
+
+.alert-error {
+    background: rgba(184, 98, 79, 0.1);
+    border-color: var(--error);
+    color: var(--error);
+}
+
+.alert-info {
+    background: rgba(74, 124, 158, 0.1);
+    border-color: var(--info);
+    color: var(--info);
+}
+
+/* Notification Toast */
+.notificacion {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-tooltip);
+    animation: slideIn var(--transition-base);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: 300px;
+}
+
+.notificacion-success {
+    background: var(--success);
+    color: var(--text-inverse);
+}
+
+.notificacion-error {
+    background: var(--error);
+    color: var(--text-inverse);
+}
+
+.notificacion-info {
+    background: var(--info);
+    color: var(--text-inverse);
+}
+
+.notificacion-warning {
+    background: var(--warning);
+    color: var(--text-inverse);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 3px solid var(--border-light);
+    border-top: 3px solid var(--primary-gold);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-small {
+    width: 20px;
+    height: 20px;
+    border-width: 2px;
+}
+
+.spinner-large {
+    width: 60px;
+    height: 60px;
+    border-width: 4px;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-modal);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: var(--space-lg);
+        margin: 10% auto;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+
+    .notificacion {
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+    }
+}

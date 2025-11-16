@@ -1,0 +1,647 @@
+/**
+ * REGISTRATION PAGE STYLES
+ * Styles for the tourist registration multi-step form
+ */
+
+/* Background */
+.register-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+        var(--primary-stone) 0%,
+        var(--primary-sky) 100%
+    );
+    z-index: -2;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(139, 115, 85, 0.8) 0%,
+        rgba(44, 44, 44, 0.85) 100%
+    );
+    backdrop-filter: blur(2px);
+    z-index: -1;
+}
+
+/* Main Container */
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-xl);
+    position: relative;
+}
+
+/* Header */
+.register-header {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: var(--space-xl);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: var(--space-lg);
+    transition: var(--transition-base);
+    opacity: 0.9;
+}
+
+.back-link:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
+
+.logo-section {
+    text-align: center;
+    color: white;
+}
+
+.logo-section .logo-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--space-md);
+}
+
+.logo-section h1 {
+    font-size: 2.5rem;
+    margin: 0 0 var(--space-sm);
+    font-weight: 700;
+}
+
+.logo-section p {
+    font-size: 1.125rem;
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Card */
+.register-card {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    max-width: 900px;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Progress Steps */
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-xl);
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: var(--transition-base);
+}
+
+.step.active {
+    opacity: 1;
+}
+
+.step.completed {
+    opacity: 0.8;
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
+    font-weight: 700;
+    font-size: 1.25rem;
+    border: 3px solid var(--border-color);
+    transition: var(--transition-base);
+}
+
+.step.active .step-number {
+    background: var(--primary-gold);
+    color: white;
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 24px rgba(201, 169, 97, 0.5);
+    transform: scale(1.1);
+}
+
+.step.completed .step-number {
+    background: var(--primary-jade);
+    color: white;
+    border-color: var(--primary-jade);
+}
+
+.step span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: block;
+}
+
+.step.active span {
+    color: var(--text-primary);
+}
+
+/* Step connector line */
+.step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    width: 100%;
+    height: 3px;
+    background: var(--border-color);
+    z-index: -1;
+}
+
+.step.completed:not(:last-child)::after {
+    background: var(--primary-jade);
+}
+
+/* Multi-step Form */
+.multi-step-form {
+    padding: var(--space-xl);
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-step h2 {
+    color: var(--primary-stone);
+    margin: 0 0 var(--space-sm);
+    font-size: 2rem;
+}
+
+.step-description {
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-xl);
+    font-size: 1rem;
+}
+
+/* Form Layout */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+/* Avatar Upload Section */
+.avatar-upload-section {
+    display: flex;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    align-items: flex-start;
+}
+
+.avatar-preview-large {
+    width: 200px;
+    height: 200px;
+    border-radius: 16px;
+    border: 3px dashed var(--border-color);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    flex-shrink: 0;
+    transition: var(--transition-base);
+}
+
+.avatar-preview-large:hover {
+    border-color: var(--primary-gold);
+}
+
+.avatar-placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: var(--space-lg);
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: var(--space-md);
+}
+
+.avatar-placeholder p {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.avatar-image-uploaded {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-upload-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.upload-info {
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-sky);
+}
+
+.upload-info small {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Avatar Style Selector */
+.avatar-style-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.avatar-style-option {
+    position: relative;
+}
+
+.avatar-style-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.style-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-lg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-base);
+    background: var(--bg-secondary);
+}
+
+.avatar-style-option input[type="radio"]:checked + .style-card {
+    border-color: var(--primary-gold);
+    background: rgba(201, 169, 97, 0.1);
+    box-shadow: 0 0 20px rgba(201, 169, 97, 0.2);
+}
+
+.style-card:hover {
+    border-color: var(--primary-gold);
+    transform: translateY(-2px);
+}
+
+.style-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+}
+
+.style-card span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Membership Cards */
+.membership-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.membership-card {
+    position: relative;
+}
+
+.membership-card.popular {
+    transform: scale(1.05);
+    z-index: 1;
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-stone) 100%);
+    color: white;
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-md);
+    z-index: 2;
+}
+
+.membership-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.membership-label {
+    display: block;
+    padding: var(--space-xl);
+    border: 3px solid var(--border-color);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: var(--transition-base);
+    background: var(--bg-primary);
+    height: 100%;
+}
+
+.membership-card input[type="radio"]:checked + .membership-label {
+    border-color: var(--primary-gold);
+    background: rgba(201, 169, 97, 0.05);
+    box-shadow: 0 8px 24px rgba(201, 169, 97, 0.2);
+    transform: translateY(-4px);
+}
+
+.membership-label:hover {
+    border-color: var(--primary-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.membership-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-md);
+}
+
+.membership-badge.free {
+    background: rgba(138, 138, 138, 0.2);
+    color: #5a5a5a;
+}
+
+.membership-badge.premium {
+    background: rgba(201, 169, 97, 0.2);
+    color: var(--primary-gold);
+}
+
+.membership-badge.vip {
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--membership-vip);
+}
+
+.membership-label h3 {
+    margin: 0 0 var(--space-lg);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
+
+.membership-price {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.membership-price .price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-stone);
+}
+
+.membership-price .period {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.membership-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+}
+
+.membership-features li {
+    padding: var(--space-sm) 0;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+.membership-features .check {
+    color: var(--primary-jade);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.membership-features .cross {
+    color: var(--text-secondary);
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+.membership-note {
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Checkbox Container */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    cursor: pointer;
+    padding: var(--space-md);
+    border-radius: 8px;
+    transition: var(--transition-base);
+}
+
+.checkbox-container:hover {
+    background: var(--bg-secondary);
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.checkbox-container span {
+    flex: 1;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+.checkbox-container a {
+    color: var(--primary-gold);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.checkbox-container a:hover {
+    text-decoration: underline;
+}
+
+/* Form Navigation */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 2px solid var(--border-color);
+}
+
+.form-navigation .btn {
+    min-width: 140px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-container {
+        padding: var(--space-md);
+    }
+
+    .logo-section h1 {
+        font-size: 1.75rem;
+    }
+
+    .logo-section .logo-icon {
+        font-size: 2rem;
+    }
+
+    .progress-steps {
+        padding: var(--space-md);
+    }
+
+    .step span {
+        font-size: 0.75rem;
+    }
+
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .step:not(:last-child)::after {
+        top: 20px;
+    }
+
+    .multi-step-form {
+        padding: var(--space-lg);
+    }
+
+    .form-step h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .avatar-upload-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .avatar-preview-large {
+        width: 160px;
+        height: 160px;
+    }
+
+    .avatar-style-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .membership-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .membership-card.popular {
+        transform: scale(1);
+    }
+
+    .form-navigation {
+        flex-direction: column-reverse;
+    }
+
+    .form-navigation .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-header {
+        margin-bottom: var(--space-lg);
+    }
+
+    .logo-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo-section p {
+        font-size: 0.875rem;
+    }
+
+    .step span {
+        display: none;
+    }
+
+    .membership-price .price {
+        font-size: 2rem;
+    }
+
+    .style-icon {
+        font-size: 2.5rem;
+    }
+}

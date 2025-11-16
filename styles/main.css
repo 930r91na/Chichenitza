@@ -1,0 +1,22 @@
+/* ============================================
+   CHICHEN ITZA VIRTUAL TOURS - MAIN STYLESHEET
+   Modular CSS Structure
+   ============================================ */
+
+/* Core Styles */
+@import url('variables.css');
+@import url('base.css');
+@import url('layout.css');
+
+/* Components */
+@import url('components/buttons.css');
+@import url('components/forms.css');
+@import url('components/cards.css');
+@import url('components/modals.css');
+
+/* Pages - Import only when needed */
+/* @import url('pages/login.css'); */
+/* @import url('pages/register.css'); */
+/* @import url('pages/tour.css'); */
+/* @import url('pages/dashboard.css'); */
+/* @import url('pages/admin.css'); */
