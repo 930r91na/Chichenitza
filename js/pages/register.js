@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Redirect to tour page
         setTimeout(() => {
-            window.location.href = 'tour-turista.html';
+            window.location.href = './tour-turista.html';
         }, 2000);
     });
 });

@@ -27,7 +27,7 @@ function iniciarSesionTurista(event) {
     if (result.success) {
         ChichenItzaNotifications.success(result.message);
         setTimeout(() => {
-            window.location.href = 'Tourist/tour-turista.html';
+            window.location.href = './tourist/tour-turista.html';
         }, 1500);
     } else {
         ChichenItzaNotifications.error(result.message);
@@ -50,7 +50,7 @@ function iniciarSesionAdmin(event) {
     if (result.success) {
         ChichenItzaNotifications.success(result.message);
         setTimeout(() => {
-            window.location.href = 'Admin/dashboard-admin.html';
+            window.location.href = './admin/dashboard-admin.html';
         }, 1500);
     } else {
         ChichenItzaNotifications.error(result.message);

@@ -219,19 +219,19 @@ const Auth = {
         const session = this.getSession();
 
         if (!session) {
-            window.location.href = '/login.html';
+            window.location.href = './login.html';
             return;
         }
 
         switch (session.tipo) {
             case 'turista':
-                window.location.href = '/Tourist/tour-turista.html';
+                window.location.href = './tourist/tour-turista.html';
                 break;
             case 'admin':
-                window.location.href = '/Admin/dashboard-admin.html';
+                window.location.href = './admin/dashboard-admin.html';
                 break;
             default:
-                window.location.href = '/login.html';
+                window.location.href = './login.html';
         }
     },
 
@@ -243,12 +243,12 @@ const Auth = {
         const session = this.getSession();
 
         if (!session) {
-            window.location.href = '/login.html';
+            window.location.href = '../login.html';
             return false;
         }
 
         if (requiredRole && session.tipo !== requiredRole) {
-            window.location.href = '/login.html';
+            window.location.href = '../login.html';
             return false;
         }
 
