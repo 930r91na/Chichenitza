@@ -43,6 +43,7 @@ body {
 }
 
 .login-background {
+    background-image: url('images/chichenitza.jpeg');
     position: fixed;
     top: 0;
     left: 0;
@@ -425,6 +426,7 @@ body {
    ============================================ */
 
 .register-background {
+    background-image: url('images/piramide.jpg');
     position: fixed;
     top: 0;
     left: 0;
@@ -1404,6 +1406,7 @@ body {
 }
 
 .tour-scene-container {
+    background-image: url('images/cenote2.jpg');
     flex: 1;
     background: #1e293b;
     border-radius: 12px;

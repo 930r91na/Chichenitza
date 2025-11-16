@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tour Virtual - Chichen Itzá</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <div class="tour-turista-layout">
@@ -71,11 +71,6 @@
             <!-- Main Tour Viewport -->
             <main class="tour-viewport-main">
                 <div class="tour-scene-container">
-                    <!-- 
-                    TODO: Background image for current zone
-                    Default: Pyramid of Kukulkan
-                    Path: ./images/zones/kukulkan.jpg
-                    -->
                     <div class="tour-scene-bg">
                         <div class="scene-overlay-gradient"></div>
                     </div>
@@ -253,7 +248,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
     <script>
         let tiempoInicio = Date.now();
         let zonasVisitadasSet = new Set();
@@ -264,7 +259,7 @@
             const sesion = JSON.parse(localStorage.getItem('sesionActual') || '{}');
             
             if (sesion.tipo !== 'turista') {
-                window.location.href = 'login.html';
+                window.location.href = '../login.html';
                 return;
             }
 
@@ -494,7 +489,7 @@
         function cerrarSesion() {
             if (confirm('¿Deseas cerrar sesión?')) {
                 localStorage.removeItem('sesionActual');
-                window.location.href = 'login.html';
+                window.location.href = '../login.html';
             }
         }
 
