@@ -7,6 +7,10 @@
     <!-- Modular CSS Imports -->
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/pages/tour.css">
+    
+    <!-- Three.js Library for 3D View -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
     <div class="tour-turista-layout">
@@ -22,8 +26,10 @@
                 </div>
             </div>
             <div class="tour-nav-right">
-                <button class="nav-btn" onclick="verPerfil()">👤 Perfil</button>
-                <button class="nav-btn" onclick="cerrarSesion()">🚪 Salir</button>
+                <!-- Added new Gallery Button -->
+                <button class="nav-btn" id="btn-show-gallery">🖼️ Galería</button>
+                <button class="nav-btn" id="btn-profile">👤 Perfil</button>
+                <button class="nav-btn" id="btn-logout">🚪 Salir</button>
             </div>
         </nav>
 
@@ -71,12 +77,10 @@
 
             <!-- Main Tour Viewport -->
             <main class="tour-viewport-main">
-                <div class="tour-scene-container">
-                    <div class="tour-scene-bg">
-                        <div class="scene-overlay-gradient"></div>
-                    </div>
+                <div class="tour-scene-container" id="tour-scene-canvas-container">
+                    <!-- Three.js Canvas will be injected here -->
 
-                    <div class="tour-scene-content">
+                    <div class="tour-scene-content" id="tour-scene-welcome">
                         <h1 id="zoneName">Bienvenido a Chichen Itzá</h1>
                         <p id="zoneDescription">Selecciona una zona para comenzar tu recorrido virtual</p>
                     </div>
@@ -88,36 +92,26 @@
                         </div>
                     </div>
 
-                    <!-- Navigation Controls -->
-                    <div class="tour-controls-overlay">
-                        <button class="control-btn up" onclick="moverAvatar('adelante')">⬆️</button>
-                        <div class="control-row-horizontal">
-                            <button class="control-btn left" onclick="moverAvatar('izquierda')">⬅️</button>
-                            <button class="control-btn right" onclick="moverAvatar('derecha')">➡️</button>
-                        </div>
-                        <button class="control-btn down" onclick="moverAvatar('atras')">⬇️</button>
-                    </div>
+                    <!-- New "Take Photo" button overlaid on the scene -->
+                    <button class="control-btn" id="btn-take-photo" title="Tomar Foto">📷</button>
                 </div>
 
                 <!-- Action Bar -->
                 <div class="tour-action-bar">
-                    <button class="action-btn" onclick="tomarFoto()">
-                        <span class="action-icon">📷</span>
-                        <span>Foto</span>
-                    </button>
-                    <button class="action-btn" onclick="mostrarMapa()">
+                    <!-- "Foto" button is now "Mapa" -->
+                    <button class="action-btn" id="btn-show-map">
                         <span class="action-icon">🗺️</span>
                         <span>Mapa</span>
                     </button>
-                    <button class="action-btn" onclick="mostrarInfo()">
+                    <button class="action-btn" id="btn-show-info">
                         <span class="action-icon">ℹ️</span>
                         <span>Info</span>
                     </button>
-                    <button class="action-btn" onclick="abrirChat()">
+                    <button class="action-btn" id="btn-open-chat">
                         <span class="action-icon">💬</span>
                         <span>Chat</span>
                     </button>
-                    <button class="action-btn" id="guideBtn" onclick="solicitarGuia()" disabled>
+                    <button class="action-btn" id="guideBtn" disabled>
                         <span class="action-icon">👨‍🏫</span>
                         <span>Guía</span>
                     </button>
@@ -129,8 +123,8 @@
                 <h3>Zonas Disponibles</h3>
                 
                 <div class="zones-list-tour">
-                    <!-- Free Zones -->
-                    <div class="zone-item-tour accessible" onclick="visitarZona('kukulkan', 'free')">
+                    <!-- Free Zones - Removed onclick, added data attributes -->
+                    <div class="zone-item-tour accessible" data-zone-id="kukulkan" data-zone-tier="free">
                         <div class="zone-icon-tour">🏛️</div>
                         <div class="zone-info-tour">
                             <h4>Pirámide de Kukulcán</h4>
@@ -139,7 +133,7 @@
                         <span class="zone-arrow">→</span>
                     </div>
 
-                    <div class="zone-item-tour accessible" onclick="visitarZona('pelota', 'free')">
+                    <div class="zone-item-tour accessible" data-zone-id="pelota" data-zone-tier="free">
                         <div class="zone-icon-tour">⚽</div>
                         <div class="zone-info-tour">
                             <h4>Juego de Pelota</h4>
@@ -149,7 +143,7 @@
                     </div>
 
                     <!-- Premium Zones -->
-                    <div class="zone-item-tour locked" onclick="verificarAcceso('guerreros', 'premium')">
+                    <div class="zone-item-tour locked" data-zone-id="guerreros" data-zone-tier="premium">
                         <div class="zone-icon-tour">⚔️</div>
                         <div class="zone-info-tour">
                             <h4>Templo de los Guerreros</h4>
@@ -158,7 +152,7 @@
                         <span class="zone-lock">🔒</span>
                     </div>
 
-                    <div class="zone-item-tour locked" onclick="verificarAcceso('caracol', 'premium')">
+                    <div class="zone-item-tour locked" data-zone-id="caracol" data-zone-tier="premium">
                         <div class="zone-icon-tour">🔭</div>
                         <div class="zone-info-tour">
                             <h4>El Caracol</h4>
@@ -167,7 +161,7 @@
                         <span class="zone-lock">🔒</span>
                     </div>
 
-                    <div class="zone-item-tour locked" onclick="verificarAcceso('monjas', 'premium')">
+                    <div class="zone-item-tour locked" data-zone-id="monjas" data-zone-tier="premium">
                         <div class="zone-icon-tour">🏰</div>
                         <div class="zone-info-tour">
                             <h4>Las Monjas</h4>
@@ -177,7 +171,7 @@
                     </div>
 
                     <!-- VIP Zone -->
-                    <div class="zone-item-tour locked" onclick="verificarAcceso('cenote', 'vip')">
+                    <div class="zone-item-tour locked" data-zone-id="cenote" data-zone-tier="vip">
                         <div class="zone-icon-tour">💧</div>
                         <div class="zone-info-tour">
                             <h4>Cenote Sagrado</h4>
@@ -191,7 +185,7 @@
                 <div class="upgrade-section" id="upgradeSection">
                     <h4>🌟 Desbloquea Más Zonas</h4>
                     <p>Mejora tu membresía para acceder a todas las zonas</p>
-                    <button class="btn btn-primary btn-small" onclick="mostrarPlanes()">
+                    <button class="btn btn-primary btn-small" id="btn-show-plans">
                         Ver Planes
                     </button>
                 </div>
@@ -207,10 +201,14 @@
         </div>
     </div>
 
+    <!-- ======================================== -->
+    <!-- ===         MODALS START HERE        === -->
+    <!-- ======================================== -->
+
     <!-- Upgrade Modal -->
     <div id="upgradeModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="cerrarModal('upgradeModal')">&times;</span>
+            <button class="close btn-close-modal" data-target-modal="upgradeModal">&times;</button>
             <h2>🌟 Mejora tu Experiencia</h2>
             <p id="modalMessage">Esta zona requiere una membresía Premium o superior</p>
             
@@ -244,8 +242,96 @@
     <!-- Info Modal -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="cerrarModal('infoModal')">&times;</span>
-            <div id="infoContent"></div>
+            <button class="close btn-close-modal" data-target-modal="infoModal">&times;</button>
+            <div id="infoContent">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal (NEW) -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <button class="close btn-close-modal" data-target-modal="profileModal">&times;</button>
+            <h2>👤 Mi Perfil</h2>
+            <div class="profile-modal-body">
+                <div class="profile-modal-avatar">
+                    <div class="avatar-img" id="profileModalAvatar">👤</div>
+                </div>
+                <div class="profile-modal-details">
+                    <h3 id="profileModalName">Usuario</h3>
+                    <p id="profileModalEmail">email@dominio.com</p>
+                    <div class="membership-display" id="profileModalMembershipBadge">
+                        <span id="profileModalMembershipLevel">FREE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="user-stats-card">
+                <div class="stat-row">
+                    <span class="stat-icon">🏛️</span>
+                    <div class="stat-details">
+                        <span class="stat-label">Zonas Visitadas</span>
+                        <span class="stat-value" id="profileModalZones">0/6</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-icon">⭐</span>
+                    <div class="stat-details">
+                        <span class="stat-label">Puntos Totales</span>
+                        <span class="stat-value" id="profileModalPoints">0</span>
+                    </div>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-icon">📅</span>
+                    <div class="stat-details">
+                        <span class="stat-label">Miembro Desde</span>
+                        <span class="stat-value" id="profileModalJoinDate">...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal (NEW) -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <button class="close btn-close-modal" data-target-modal="galleryModal">&times;</button>
+            <h2>🖼️ Mi Galería de Fotos</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Photos injected by JS -->
+                <p id="galleryPlaceholder">Aún no has tomado fotos. Haz clic en el ícono 📷 durante tu tour para guardar una.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Modal (NEW) -->
+    <div id="mapModal" class="modal">
+        <div class="modal-content">
+            <button class="close btn-close-modal" data-target-modal="mapModal">&times;</button>
+            <h2>🗺️ Mapa del Sitio</h2>
+            <div class="map-container">
+                <img src="https://placehold.co/800x600/F0EDE6/2C2C2C?text=Mapa+del+Sitio+Arqueol%C3%B3gico" alt="Mapa de Chichen Itzá" style="width: 100%; border-radius: 8px;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal (NEW) -->
+    <div id="chatModal" class="modal chat-modal">
+        <div class="modal-content chat-content">
+            <div class="chat-header">
+                <h3>💬 Chat de Ayuda</h3>
+                <button class="close btn-close-modal" data-target-modal="chatModal">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message bot">
+                    <span class="chat-avatar">👤</span>
+                    <p>¡Hola! Soy tu guía! ¿En qué puedo ayudarte hoy?</p>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+                <button class="btn btn-primary" id="btn-send-chat">Enviar</button>
+            </div>
         </div>
     </div>
 

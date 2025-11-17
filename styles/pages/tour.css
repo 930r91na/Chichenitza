@@ -115,7 +115,7 @@
 /* Left Sidebar - User Profile & Stats */
 .tour-sidebar-left {
     background: var(--bg-secondary);
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-light);
     overflow-y: auto;
     padding: var(--space-lg);
 }
@@ -185,7 +185,7 @@
     align-items: center;
     gap: var(--space-md);
     padding: var(--space-md) 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-light);
 }
 
 .stat-row:last-child {
@@ -263,35 +263,36 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    background: #000; /* Fallback for 3D canvas */
 }
 
+/* This is now the 3D canvas container */
+#tour-scene-canvas-container {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+#tour-scene-canvas-container:grabbing {
+    cursor: grabbing;
+}
+
+/* Hide legacy background elements */
 .tour-scene-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #2C2C2C 0%, #1a1a1a 100%);
-    background-image:
-        url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>');
-    background-size: 50px 50px;
+    display: none;
 }
-
 .scene-overlay-gradient {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+    display: none;
 }
 
+/* Style for the welcome message */
 .tour-scene-content {
-    position: relative;
+    position: absolute; /* Keep it overlaid on top of the canvas */
     z-index: 2;
     text-align: center;
     padding: var(--space-xl);
     max-width: 800px;
+    pointer-events: none; /* Allow clicks to go through to the canvas */
 }
 
 .tour-scene-content h1 {
@@ -336,32 +337,25 @@
     font-size: 1.25rem;
 }
 
-/* Movement Controls */
+/* Movement Controls (Hidden, replaced by OrbitControls) */
 .tour-controls-overlay {
+    display: none; 
+}
+
+/* New Take Photo Button */
+#btn-take-photo {
     position: absolute;
     bottom: 120px;
     left: 50%;
     transform: translateX(-50%);
-    display: grid;
-    grid-template-rows: auto auto auto;
-    gap: var(--space-xs);
     z-index: 3;
-}
-
-.control-row-horizontal {
-    display: flex;
-    gap: var(--space-xs);
-    justify-content: center;
-}
-
-.control-btn {
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.2);
     color: white;
     width: 56px;
     height: 56px;
-    border-radius: 12px;
+    border-radius: 50%;
     cursor: pointer;
     transition: var(--transition-base);
     font-size: 1.5rem;
@@ -369,21 +363,12 @@
     align-items: center;
     justify-content: center;
 }
-
-.control-btn:hover {
+#btn-take-photo:hover {
     background: rgba(201, 169, 97, 0.8);
     border-color: var(--primary-gold);
-    transform: scale(1.05);
+    transform: translateX(-50%) scale(1.05);
 }
 
-.control-btn:active {
-    transform: scale(0.95);
-}
-
-.control-btn.up,
-.control-btn.down {
-    margin: 0 auto;
-}
 
 /* Action Bar */
 .tour-action-bar {
@@ -440,7 +425,7 @@
 /* Right Sidebar - Zones & Events */
 .tour-sidebar-right {
     background: var(--bg-secondary);
-    border-left: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-light);
     overflow-y: auto;
     padding: var(--space-lg);
 }
@@ -478,7 +463,7 @@
     border-radius: 12px;
     cursor: pointer;
     transition: var(--transition-base);
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--border-light);
     background: var(--bg-primary);
 }
 
@@ -495,7 +480,7 @@
 
 .zone-item-tour.locked:hover {
     transform: none;
-    border-color: var(--border-color);
+    border-color: var(--border-light);
     box-shadow: none;
 }
 
@@ -666,6 +651,10 @@
     cursor: pointer;
     transition: var(--transition-fast);
     line-height: 1;
+    /* Ensure it's a button for accessibility */
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .close:hover {
@@ -681,7 +670,7 @@
 
 .plan-box {
     padding: var(--space-xl);
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--border-light);
     border-radius: 12px;
     text-align: center;
     transition: var(--transition-base);
@@ -738,6 +727,184 @@
     font-size: 0.875rem;
 }
 
+
+/* --- NEW MODAL STYLES --- */
+
+/* Profile Modal */
+.profile-modal-body {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-lg);
+}
+.profile-modal-avatar .avatar-img {
+    width: 120px;
+    height: 120px;
+    font-size: 4rem;
+}
+.profile-modal-details h3 {
+    margin: 0 0 var(--space-sm);
+}
+.profile-modal-details p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin: 0 0 var(--space-md);
+}
+.profile-modal-details .membership-display {
+    border-width: 2px;
+    display: inline-flex;
+}
+#profileModal .user-stats-card {
+    margin: 0;
+    box-shadow: none;
+    border-top: 1px solid var(--border-light);
+    padding-top: var(--space-lg);
+}
+#profileModal .stat-row:last-child {
+    border: none;
+}
+#profileModal .stat-value {
+    font-size: 1rem;
+}
+
+/* Gallery Modal */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-md);
+    min-height: 200px;
+}
+.gallery-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 1 / 1;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.gallery-item-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.75rem;
+    text-align: center;
+}
+#galleryPlaceholder {
+    text-align: center;
+    padding: var(--space-xl);
+    color: var(--text-muted);
+}
+
+/* Map Modal */
+.map-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Chat Modal */
+.chat-modal {
+    /* Reposition to bottom right */
+    align-items: flex-end;
+    justify-content: flex-end;
+    pointer-events: none; /* Allow clicks through backdrop */
+}
+.chat-content {
+    max-width: 400px;
+    width: 90%;
+    margin: 0 var(--space-lg) var(--space-lg) 0;
+    padding: 0;
+    pointer-events: all; /* Enable clicks on modal */
+}
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+}
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+}
+.chat-header .close {
+    position: static;
+    font-size: 1.5rem;
+}
+.chat-body {
+    padding: var(--space-lg);
+    height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+.chat-message {
+    display: flex;
+    gap: var(--space-sm);
+    max-width: 85%;
+}
+.chat-message.bot {
+    align-self: flex-start;
+}
+.chat-message.user {
+    align-self: flex-end;
+}
+.chat-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-stone);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.25rem;
+}
+.chat-message.user .chat-avatar {
+    display: none;
+}
+.chat-message p {
+    margin: 0;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 12px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+.chat-message.bot p {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-top-left-radius: 0;
+}
+.chat-message.user p {
+    background: var(--primary-gold);
+    color: white;
+    border-top-right-radius: 0;
+}
+.chat-footer {
+    display: flex;
+    padding: var(--space-md);
+    border-top: 1px solid var(--border-light);
+    gap: var(--space-sm);
+}
+.chat-footer input {
+    flex: 1;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 0.875rem;
+}
+
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .tour-main-container {
@@ -791,9 +958,13 @@
         min-width: 60px;
     }
 
-    .tour-controls-overlay {
+    /* .tour-controls-overlay {
         bottom: 140px;
         scale: 0.9;
+    } */
+    
+    #btn-take-photo {
+        bottom: 140px;
     }
 
     .plans-comparison {
