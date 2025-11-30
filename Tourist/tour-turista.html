@@ -1,204 +1,233 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tour Virtual - Chichen Itzá</title>
     <!-- Modular CSS Imports -->
-    <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="../styles/pages/tour.css">
-    
+    <link rel="stylesheet" href="../styles/main.css" />
+    <link rel="stylesheet" href="../styles/pages/tour.css" />
+
     <!-- Three.js Library for 3D View -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-</head>
-<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
     <div class="tour-turista-layout">
-        <!-- Top Navigation Bar -->
-        <nav class="tour-navbar">
-            <div class="tour-nav-left">
-                <h2>Chichen Itzá Virtual</h2>
-            </div>
-            <div class="tour-nav-center">
-                <div class="membership-display" id="membershipBadge">
-                    <span class="membership-icon">⭐</span>
-                    <span id="membershipLevel">FREE</span>
-                </div>
-            </div>
-            <div class="tour-nav-right">
-                <!-- Added new Gallery Button -->
-                <button class="nav-btn" id="btn-show-gallery">🖼️ Galería</button>
-                <button class="nav-btn" id="btn-profile">👤 Perfil</button>
-                <button class="nav-btn" id="btn-logout">🚪 Salir</button>
-            </div>
-        </nav>
-
-        <div class="tour-main-container">
-            <!-- Left Sidebar - User Info & Stats -->
-            <aside class="tour-sidebar-left">
-                <div class="user-profile-card">
-                    <div class="profile-avatar" id="userAvatarDisplay">
-                        <div class="avatar-img">👤</div>
-                    </div>
-                    <h3 id="userName">Usuario</h3>
-                    <p class="user-level" id="userMembership">Plan Free</p>
-                </div>
-
-                <div class="user-stats-card">
-                    <h4>Estadísticas</h4>
-                    <div class="stat-row">
-                        <span class="stat-icon">🏛️</span>
-                        <div class="stat-details">
-                            <span class="stat-label">Zonas Visitadas</span>
-                            <span class="stat-value" id="zonasVisitadas">0/6</span>
-                        </div>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-icon">⏱️</span>
-                        <div class="stat-details">
-                            <span class="stat-label">Tiempo Total</span>
-                            <span class="stat-value" id="tiempoTotal">0h 0m</span>
-                        </div>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-icon">⭐</span>
-                        <div class="stat-details">
-                            <span class="stat-label">Puntos</span>
-                            <span class="stat-value" id="puntosUsuario">0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="connection-status-card">
-                    <div class="status-indicator online"></div>
-                    <span>Conectado</span>
-                </div>
-            </aside>
-
-            <!-- Main Tour Viewport -->
-            <main class="tour-viewport-main">
-                <div class="tour-scene-container" id="tour-scene-canvas-container">
-                    <!-- Three.js Canvas will be injected here -->
-
-                    <div class="tour-scene-content" id="tour-scene-welcome">
-                        <h1 id="zoneName">Bienvenido a Chichen Itzá</h1>
-                        <p id="zoneDescription">Selecciona una zona para comenzar tu recorrido virtual</p>
-                    </div>
-
-                    <div class="tour-scene-info">
-                        <div class="online-users">
-                            <span class="users-icon">👥</span>
-                            <span id="onlineCount">48</span> en línea
-                        </div>
-                    </div>
-
-                    <!-- New "Take Photo" button overlaid on the scene -->
-                    <button class="control-btn" id="btn-take-photo" title="Tomar Foto">📷</button>
-                </div>
-
-                <!-- Action Bar -->
-                <div class="tour-action-bar">
-                    <!-- "Foto" button is now "Mapa" -->
-                    <button class="action-btn" id="btn-show-map">
-                        <span class="action-icon">🗺️</span>
-                        <span>Mapa</span>
-                    </button>
-                    <button class="action-btn" id="btn-show-info">
-                        <span class="action-icon">ℹ️</span>
-                        <span>Info</span>
-                    </button>
-                    <button class="action-btn" id="btn-open-chat">
-                        <span class="action-icon">💬</span>
-                        <span>Chat</span>
-                    </button>
-                    <button class="action-btn" id="guideBtn" disabled>
-                        <span class="action-icon">👨‍🏫</span>
-                        <span>Guía</span>
-                    </button>
-                </div>
-            </main>
-
-            <!-- Right Sidebar - Zones List -->
-            <aside class="tour-sidebar-right">
-                <h3>Zonas Disponibles</h3>
-                
-                <div class="zones-list-tour">
-                    <!-- Free Zones - Removed onclick, added data attributes -->
-                    <div class="zone-item-tour accessible" data-zone-id="kukulkan" data-zone-tier="free">
-                        <div class="zone-icon-tour">🏛️</div>
-                        <div class="zone-info-tour">
-                            <h4>Pirámide de Kukulcán</h4>
-                            <span class="zone-access">🆓 Gratis</span>
-                        </div>
-                        <span class="zone-arrow">→</span>
-                    </div>
-
-                    <div class="zone-item-tour accessible" data-zone-id="pelota" data-zone-tier="free">
-                        <div class="zone-icon-tour">⚽</div>
-                        <div class="zone-info-tour">
-                            <h4>Juego de Pelota</h4>
-                            <span class="zone-access">🆓 Gratis</span>
-                        </div>
-                        <span class="zone-arrow">→</span>
-                    </div>
-
-                    <!-- Premium Zones -->
-                    <div class="zone-item-tour locked" data-zone-id="guerreros" data-zone-tier="premium">
-                        <div class="zone-icon-tour">⚔️</div>
-                        <div class="zone-info-tour">
-                            <h4>Templo de los Guerreros</h4>
-                            <span class="zone-access premium">⭐ Premium</span>
-                        </div>
-                        <span class="zone-lock">🔒</span>
-                    </div>
-
-                    <div class="zone-item-tour locked" data-zone-id="caracol" data-zone-tier="premium">
-                        <div class="zone-icon-tour">🔭</div>
-                        <div class="zone-info-tour">
-                            <h4>El Caracol</h4>
-                            <span class="zone-access premium">⭐ Premium</span>
-                        </div>
-                        <span class="zone-lock">🔒</span>
-                    </div>
-
-                    <div class="zone-item-tour locked" data-zone-id="monjas" data-zone-tier="premium">
-                        <div class="zone-icon-tour">🏰</div>
-                        <div class="zone-info-tour">
-                            <h4>Las Monjas</h4>
-                            <span class="zone-access premium">⭐ Premium</span>
-                        </div>
-                        <span class="zone-lock">🔒</span>
-                    </div>
-
-                    <!-- VIP Zone -->
-                    <div class="zone-item-tour locked" data-zone-id="cenote" data-zone-tier="vip">
-                        <div class="zone-icon-tour">💧</div>
-                        <div class="zone-info-tour">
-                            <h4>Cenote Sagrado</h4>
-                            <span class="zone-access vip">💎 VIP</span>
-                        </div>
-                        <span class="zone-lock">🔒</span>
-                    </div>
-                </div>
-
-                <!-- Upgrade Section -->
-                <div class="upgrade-section" id="upgradeSection">
-                    <h4>🌟 Desbloquea Más Zonas</h4>
-                    <p>Mejora tu membresía para acceder a todas las zonas</p>
-                    <button class="btn btn-primary btn-small" id="btn-show-plans">
-                        Ver Planes
-                    </button>
-                </div>
-
-                <!-- Events Section -->
-                <div class="events-section">
-                    <h4>📅 Próximos Eventos</h4>
-                    <div class="event-item-small" id="eventsList">
-                        <p class="no-events">No hay eventos disponibles para tu nivel</p>
-                    </div>
-                </div>
-            </aside>
+      <!-- Top Navigation Bar -->
+      <nav class="tour-navbar">
+        <div class="tour-nav-left">
+          <h2>Chichen Itzá Virtual</h2>
         </div>
+        <div class="tour-nav-center">
+          <div class="membership-display" id="membershipBadge">
+            <span class="membership-icon">⭐</span>
+            <span id="membershipLevel">FREE</span>
+          </div>
+        </div>
+        <div class="tour-nav-right">
+          <!-- Added new Gallery Button -->
+          <button class="nav-btn" id="btn-show-gallery">🖼️ Galería</button>
+          <button class="nav-btn" id="btn-profile">👤 Perfil</button>
+          <button class="nav-btn" id="btn-logout">🚪 Salir</button>
+        </div>
+      </nav>
+
+      <div class="tour-main-container">
+        <!-- Left Sidebar - User Info & Stats -->
+        <aside class="tour-sidebar-left">
+          <div class="user-profile-card">
+            <div class="profile-avatar" id="userAvatarDisplay">
+              <div class="avatar-img">👤</div>
+            </div>
+            <h3 id="userName">Usuario</h3>
+            <p class="user-level" id="userMembership">Plan Free</p>
+          </div>
+
+          <div class="user-stats-card">
+            <h4>Estadísticas</h4>
+            <div class="stat-row">
+              <span class="stat-icon">🏛️</span>
+              <div class="stat-details">
+                <span class="stat-label">Zonas Visitadas</span>
+                <span class="stat-value" id="zonasVisitadas">0/6</span>
+              </div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-icon">⏱️</span>
+              <div class="stat-details">
+                <span class="stat-label">Tiempo Total</span>
+                <span class="stat-value" id="tiempoTotal">0h 0m</span>
+              </div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-icon">⭐</span>
+              <div class="stat-details">
+                <span class="stat-label">Puntos</span>
+                <span class="stat-value" id="puntosUsuario">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="connection-status-card">
+            <div class="status-indicator online"></div>
+            <span>Conectado</span>
+          </div>
+        </aside>
+
+        <!-- Main Tour Viewport -->
+        <main class="tour-viewport-main">
+          <div class="tour-scene-container" id="tour-scene-canvas-container">
+            <!-- Three.js Canvas will be injected here -->
+
+            <div class="tour-scene-content" id="tour-scene-welcome">
+              <h1 id="zoneName">Bienvenido a Chichen Itzá</h1>
+              <p id="zoneDescription">
+                Selecciona una zona para comenzar tu recorrido virtual
+              </p>
+            </div>
+
+            <div class="tour-scene-info">
+              <div class="online-users">
+                <span class="users-icon">👥</span>
+                <span id="onlineCount">48</span> en línea
+              </div>
+            </div>
+
+            <!-- New "Take Photo" button overlaid on the scene -->
+            <button class="control-btn" id="btn-take-photo" title="Tomar Foto">
+              📷
+            </button>
+          </div>
+
+          <!-- Action Bar -->
+          <div class="tour-action-bar">
+            <!-- "Foto" button is now "Mapa" -->
+            <button class="action-btn" id="btn-show-map">
+              <span class="action-icon">🗺️</span>
+              <span>Mapa</span>
+            </button>
+            <button class="action-btn" id="btn-show-info">
+              <span class="action-icon">ℹ️</span>
+              <span>Info</span>
+            </button>
+            <button class="action-btn" id="btn-open-chat">
+              <span class="action-icon">💬</span>
+              <span>Chat</span>
+            </button>
+            <button class="action-btn" id="guideBtn" disabled>
+              <span class="action-icon">👨‍🏫</span>
+              <span>Guía</span>
+            </button>
+          </div>
+        </main>
+
+        <!-- Right Sidebar - Zones List -->
+        <aside class="tour-sidebar-right">
+          <h3>Zonas Disponibles</h3>
+
+          <div class="zones-list-tour">
+            <!-- Free Zones - Removed onclick, added data attributes -->
+            <div
+              class="zone-item-tour accessible"
+              data-zone-id="kukulkan"
+              data-zone-tier="free"
+            >
+              <div class="zone-icon-tour">🏛️</div>
+              <div class="zone-info-tour">
+                <h4>Pirámide de Kukulcán</h4>
+                <span class="zone-access">🆓 Gratis</span>
+              </div>
+              <span class="zone-arrow">→</span>
+            </div>
+
+            <div
+              class="zone-item-tour accessible"
+              data-zone-id="pelota"
+              data-zone-tier="free"
+            >
+              <div class="zone-icon-tour">⚽</div>
+              <div class="zone-info-tour">
+                <h4>Juego de Pelota</h4>
+                <span class="zone-access">🆓 Gratis</span>
+              </div>
+              <span class="zone-arrow">→</span>
+            </div>
+
+            <!-- Premium Zones -->
+            <div
+              class="zone-item-tour locked"
+              data-zone-id="guerreros"
+              data-zone-tier="premium"
+            >
+              <div class="zone-icon-tour">⚔️</div>
+              <div class="zone-info-tour">
+                <h4>Templo de los Guerreros</h4>
+                <span class="zone-access premium">⭐ Premium</span>
+              </div>
+              <span class="zone-lock">🔒</span>
+            </div>
+
+            <div
+              class="zone-item-tour locked"
+              data-zone-id="caracol"
+              data-zone-tier="premium"
+            >
+              <div class="zone-icon-tour">🔭</div>
+              <div class="zone-info-tour">
+                <h4>El Caracol</h4>
+                <span class="zone-access premium">⭐ Premium</span>
+              </div>
+              <span class="zone-lock">🔒</span>
+            </div>
+
+            <div
+              class="zone-item-tour locked"
+              data-zone-id="monjas"
+              data-zone-tier="premium"
+            >
+              <div class="zone-icon-tour">🏰</div>
+              <div class="zone-info-tour">
+                <h4>Las Monjas</h4>
+                <span class="zone-access premium">⭐ Premium</span>
+              </div>
+              <span class="zone-lock">🔒</span>
+            </div>
+
+            <!-- VIP Zone -->
+            <div
+              class="zone-item-tour locked"
+              data-zone-id="cenote"
+              data-zone-tier="vip"
+            >
+              <div class="zone-icon-tour">💧</div>
+              <div class="zone-info-tour">
+                <h4>Cenote Sagrado</h4>
+                <span class="zone-access vip">💎 VIP</span>
+              </div>
+              <span class="zone-lock">🔒</span>
+            </div>
+          </div>
+
+          <!-- Upgrade Section -->
+          <div class="upgrade-section" id="upgradeSection">
+            <h4>🌟 Desbloquea Más Zonas</h4>
+            <p>Mejora tu membresía para acceder a todas las zonas</p>
+            <button class="btn btn-primary btn-small" id="btn-show-plans">
+              Ver Planes
+            </button>
+          </div>
+
+          <!-- Events Section -->
+          <div class="events-section">
+            <h4>📅 Próximos Eventos</h4>
+            <div class="event-item-small" id="eventsList">
+              <p class="no-events">No hay eventos disponibles para tu nivel</p>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
 
     <!-- ======================================== -->
@@ -207,132 +236,157 @@
 
     <!-- Upgrade Modal -->
     <div id="upgradeModal" class="modal">
-        <div class="modal-content">
-            <button class="close btn-close-modal" data-target-modal="upgradeModal">&times;</button>
-            <h2>🌟 Mejora tu Experiencia</h2>
-            <p id="modalMessage">Esta zona requiere una membresía Premium o superior</p>
-            
-            <div class="plans-comparison">
-                <div class="plan-box">
-                    <h3>Premium</h3>
-                    <div class="plan-price">$299<span>/mes</span></div>
-                    <ul>
-                        <li>✓ 6 zonas completas</li>
-                        <li>✓ Guías incluidos</li>
-                        <li>✓ Eventos mensuales</li>
-                    </ul>
-                    <button class="btn btn-primary">Mejorar</button>
-                </div>
-                <div class="plan-box highlight">
-                    <div class="popular-tag">POPULAR</div>
-                    <h3>VIP</h3>
-                    <div class="plan-price">$599<span>/mes</span></div>
-                    <ul>
-                        <li>✓ Todo Premium +</li>
-                        <li>✓ Tours privados</li>
-                        <li>✓ Eventos VIP semanales</li>
-                        <li>✓ Contenido 4K</li>
-                    </ul>
-                    <button class="btn btn-primary">Mejorar</button>
-                </div>
-            </div>
+      <div class="modal-content">
+        <button class="close btn-close-modal" data-target-modal="upgradeModal">
+          &times;
+        </button>
+        <h2>🌟 Mejora tu Experiencia</h2>
+        <p id="modalMessage">
+          Esta zona requiere una membresía Premium o superior
+        </p>
+
+        <div class="plans-comparison">
+          <div class="plan-box">
+            <h3>Premium</h3>
+            <div class="plan-price">$299<span>/mes</span></div>
+            <ul>
+              <li>✓ 6 zonas completas</li>
+              <li>✓ Guías incluidos</li>
+              <li>✓ Eventos mensuales</li>
+            </ul>
+            <button class="btn btn-primary">Mejorar</button>
+          </div>
+          <div class="plan-box highlight">
+            <div class="popular-tag">POPULAR</div>
+            <h3>VIP</h3>
+            <div class="plan-price">$599<span>/mes</span></div>
+            <ul>
+              <li>✓ Todo Premium +</li>
+              <li>✓ Tours privados</li>
+              <li>✓ Eventos VIP semanales</li>
+              <li>✓ Contenido 4K</li>
+            </ul>
+            <button class="btn btn-primary">Mejorar</button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Info Modal -->
     <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <button class="close btn-close-modal" data-target-modal="infoModal">&times;</button>
-            <div id="infoContent">
-                <!-- Content injected by JS -->
-            </div>
+      <div class="modal-content">
+        <button class="close btn-close-modal" data-target-modal="infoModal">
+          &times;
+        </button>
+        <div id="infoContent">
+          <!-- Content injected by JS -->
         </div>
+      </div>
     </div>
 
     <!-- Profile Modal (NEW) -->
     <div id="profileModal" class="modal">
-        <div class="modal-content">
-            <button class="close btn-close-modal" data-target-modal="profileModal">&times;</button>
-            <h2>👤 Mi Perfil</h2>
-            <div class="profile-modal-body">
-                <div class="profile-modal-avatar">
-                    <div class="avatar-img" id="profileModalAvatar">👤</div>
-                </div>
-                <div class="profile-modal-details">
-                    <h3 id="profileModalName">Usuario</h3>
-                    <p id="profileModalEmail">email@dominio.com</p>
-                    <div class="membership-display" id="profileModalMembershipBadge">
-                        <span id="profileModalMembershipLevel">FREE</span>
-                    </div>
-                </div>
+      <div class="modal-content">
+        <button class="close btn-close-modal" data-target-modal="profileModal">
+          &times;
+        </button>
+        <h2>👤 Mi Perfil</h2>
+        <div class="profile-modal-body">
+          <div class="profile-modal-avatar">
+            <div class="avatar-img" id="profileModalAvatar">👤</div>
+          </div>
+          <div class="profile-modal-details">
+            <h3 id="profileModalName">Usuario</h3>
+            <p id="profileModalEmail">email@dominio.com</p>
+            <div class="membership-display" id="profileModalMembershipBadge">
+              <span id="profileModalMembershipLevel">FREE</span>
             </div>
-            <div class="user-stats-card">
-                <div class="stat-row">
-                    <span class="stat-icon">🏛️</span>
-                    <div class="stat-details">
-                        <span class="stat-label">Zonas Visitadas</span>
-                        <span class="stat-value" id="profileModalZones">0/6</span>
-                    </div>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-icon">⭐</span>
-                    <div class="stat-details">
-                        <span class="stat-label">Puntos Totales</span>
-                        <span class="stat-value" id="profileModalPoints">0</span>
-                    </div>
-                </div>
-                <div class="stat-row">
-                    <span class="stat-icon">📅</span>
-                    <div class="stat-details">
-                        <span class="stat-label">Miembro Desde</span>
-                        <span class="stat-value" id="profileModalJoinDate">...</span>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="user-stats-card">
+          <div class="stat-row">
+            <span class="stat-icon">🏛️</span>
+            <div class="stat-details">
+              <span class="stat-label">Zonas Visitadas</span>
+              <span class="stat-value" id="profileModalZones">0/6</span>
+            </div>
+          </div>
+          <div class="stat-row">
+            <span class="stat-icon">⭐</span>
+            <div class="stat-details">
+              <span class="stat-label">Puntos Totales</span>
+              <span class="stat-value" id="profileModalPoints">0</span>
+            </div>
+          </div>
+          <div class="stat-row">
+            <span class="stat-icon">📅</span>
+            <div class="stat-details">
+              <span class="stat-label">Miembro Desde</span>
+              <span class="stat-value" id="profileModalJoinDate">...</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Gallery Modal (NEW) -->
     <div id="galleryModal" class="modal">
-        <div class="modal-content">
-            <button class="close btn-close-modal" data-target-modal="galleryModal">&times;</button>
-            <h2>🖼️ Mi Galería de Fotos</h2>
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Photos injected by JS -->
-                <p id="galleryPlaceholder">Aún no has tomado fotos. Haz clic en el ícono 📷 durante tu tour para guardar una.</p>
-            </div>
+      <div class="modal-content">
+        <button class="close btn-close-modal" data-target-modal="galleryModal">
+          &times;
+        </button>
+        <h2>🖼️ Mi Galería de Fotos</h2>
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Photos injected by JS -->
+          <p id="galleryPlaceholder">
+            Aún no has tomado fotos. Haz clic en el ícono 📷 durante tu tour
+            para guardar una.
+          </p>
         </div>
+      </div>
     </div>
 
     <!-- Map Modal (NEW) -->
     <div id="mapModal" class="modal">
-        <div class="modal-content">
-            <button class="close btn-close-modal" data-target-modal="mapModal">&times;</button>
-            <h2>🗺️ Mapa del Sitio</h2>
-            <div class="map-container">
-                <img src="https://placehold.co/800x600/F0EDE6/2C2C2C?text=Mapa+del+Sitio+Arqueol%C3%B3gico" alt="Mapa de Chichen Itzá" style="width: 100%; border-radius: 8px;">
-            </div>
+      <div class="modal-content">
+        <button class="close btn-close-modal" data-target-modal="mapModal">
+          &times;
+        </button>
+        <h2>🗺️ Mapa del Sitio</h2>
+        <div class="map-container">
+          <img
+            src="https://placehold.co/800x600/F0EDE6/2C2C2C?text=Mapa+del+Sitio+Arqueol%C3%B3gico"
+            alt="Mapa de Chichen Itzá"
+            style="width: 100%; border-radius: 8px"
+          />
         </div>
+      </div>
     </div>
 
     <!-- Chat Modal (NEW) -->
     <div id="chatModal" class="modal chat-modal">
-        <div class="modal-content chat-content">
-            <div class="chat-header">
-                <h3>💬 Chat de Ayuda</h3>
-                <button class="close btn-close-modal" data-target-modal="chatModal">&times;</button>
-            </div>
-            <div class="chat-body" id="chatBody">
-                <div class="chat-message bot">
-                    <span class="chat-avatar">👤</span>
-                    <p>¡Hola! Soy tu guía! ¿En qué puedo ayudarte hoy?</p>
-                </div>
-            </div>
-            <div class="chat-footer">
-                <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
-                <button class="btn btn-primary" id="btn-send-chat">Enviar</button>
-            </div>
+      <div class="modal-content chat-content">
+        <div class="chat-header">
+          <h3>💬 Chat de Ayuda</h3>
+          <button class="close btn-close-modal" data-target-modal="chatModal">
+            &times;
+          </button>
         </div>
+        <div class="chat-body" id="chatBody">
+          <div class="chat-message bot">
+            <span class="chat-avatar">👤</span>
+            <p>¡Hola! Soy tu guía! ¿En qué puedo ayudarte hoy?</p>
+          </div>
+        </div>
+        <div class="chat-footer">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Escribe tu mensaje..."
+          />
+          <button class="btn btn-primary" id="btn-send-chat">Enviar</button>
+        </div>
+      </div>
     </div>
 
     <!-- Core JavaScript -->
@@ -344,5 +398,5 @@
 
     <!-- Page-specific JavaScript -->
     <script src="../js/pages/tour-turista.js"></script>
-</body>
+  </body>
 </html>
