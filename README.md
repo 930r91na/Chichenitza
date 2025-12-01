@@ -50,26 +50,42 @@ A centralized module handling login, logout, registration, and session managemen
 
 Provides helper functions like isAuthenticated() and hasMembership() for use anywhere in the app.
 
+4. Backend & Database
+
+Node.js & Express: The application is powered by a Node.js server (`server.js`) using Express. It handles API requests for login, registration, and data retrieval (zones, events, guides).
+
+SQLite Database: Data is persisted in a local SQLite database (`vrtourist.db`).
+
+- **Users**: Stores tourist and admin accounts with role-based access.
+- **Zones**: Manages tour locations, access levels, and points.
+- **Events & Guides**: Stores schedule and personnel data.
+
 How to Run This Project
 
-⚠️ Important!
+Prerequisites:
 
-DO NOT OPEN THE index.html OR admin/dashboard-admin.html FILES DIRECTLY IN YOUR BROWSER.
+- Node.js installed on your machine.
 
-This project will not work if you open it from a file:///... URL.
+Steps:
 
-Reason: The modular admin panel uses fetch() to load its sections. Modern browsers block these requests on local files for security reasons (CORS Policy). This is why you see a permanent "Cargando..." message.
+1. Install Dependencies:
+   Open a terminal in the project root and run:
 
-Solution: Use a Local Server
+   ```bash
+   npm install
+   ```
 
-You must serve the files using an http:// protocol. The easiest way is with the Live Server extension in VS Code.
+2. Start the Server:
+   Run the following command to start the backend server:
 
-In VS Code, go to the Extensions tab.
+   ```bash
+   node server.js
+   ```
 
-Search for and install "Live Server" (by Ritwick Dey).
+   (Or `npm start`)
 
-In your file explorer, right-click on login.html or index.html.
+3. Access the Application:
+   Open your browser and navigate to:
+   http://localhost:3000
 
-Select "Open with Live Server".
-
-This will open your project at a URL like http://127.0.0.1:5500/ and everything, including the admin section loading, will work correctly.
+   The server will automatically create and seed the SQLite database (`vrtourist.db`) if it doesn't exist.

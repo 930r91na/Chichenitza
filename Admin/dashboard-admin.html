@@ -1,190 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panel Administrativo - Chichen Itzá</title>
-    
-    <link rel="stylesheet" href="../styles/main.css">
-    
-    <link rel="stylesheet" href="../styles/pages/admin.css">
-    <link rel="stylesheet" href="../styles/pages/admin-dashboard.css">
-    <link rel="stylesheet" href="../styles/pages/admin-guias.css">
-    <link rel="stylesheet" href="../styles/pages/admin-eventos.css">
-</head>
-<body>
+
+    <link rel="stylesheet" href="../styles/main.css" />
+
+    <link rel="stylesheet" href="../styles/pages/admin.css" />
+    <link rel="stylesheet" href="../styles/pages/admin-dashboard.css" />
+    <link rel="stylesheet" href="../styles/pages/admin-guias.css" />
+    <link rel="stylesheet" href="../styles/pages/admin-eventos.css" />
+  </head>
+  <body>
     <div class="admin-layout">
-        <aside class="admin-sidebar">
-            <div class="sidebar-header">
-                <h2>Admin Panel</h2>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item active" onclick="cambiarSeccionAdmin('dashboard', event)">
-                    <span class="nav-icon">📊</span>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('tourists', event)">
-                    <span class="nav-icon">👥</span>
-                    <span>Turistas</span>
-                </a>
-                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('guides', event)">
-                    <span class="nav-icon">👨‍🏫</span>
-                    <span>Guías Turísticos</span>
-                </a>
-                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('events', event)">
-                    <span class="nav-icon">📅</span>
-                    <span>Eventos</span>
-                </a>
-                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('zones', event)">
-                    <span class="nav-icon">🗺️</span>
-                    <span>Zonas</span>
-                </a>
-                <a href="#" class="nav-item" onclick="cambiarSeccionAdmin('configuration', event)">
-                    <span class="nav-icon">⚙️</span>
-                    <span>Configuración</span>
-                </a>
-            </nav>
+      <aside class="admin-sidebar">
+        <div class="sidebar-header">
+          <h2>Admin Panel</h2>
+        </div>
 
-            <div class="sidebar-footer">
-                <button class="btn btn-secondary btn-full" onclick="cerrarSesion()">
-                    🚪 Cerrar Sesión
-                </button>
-            </div>
-        </aside>
+        <nav class="sidebar-nav">
+          <a
+            href="#"
+            class="nav-item active"
+            onclick="cambiarSeccionAdmin('dashboard', event)"
+          >
+            <span class="nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+          <a
+            href="#"
+            class="nav-item"
+            onclick="cambiarSeccionAdmin('tourists', event)"
+          >
+            <span class="nav-icon">👥</span>
+            <span>Turistas</span>
+          </a>
+          <a
+            href="#"
+            class="nav-item"
+            onclick="cambiarSeccionAdmin('guides', event)"
+          >
+            <span class="nav-icon">👨‍🏫</span>
+            <span>Guías Turísticos</span>
+          </a>
+          <a
+            href="#"
+            class="nav-item"
+            onclick="cambiarSeccionAdmin('events', event)"
+          >
+            <span class="nav-icon">📅</span>
+            <span>Eventos</span>
+          </a>
+          <a
+            href="#"
+            class="nav-item"
+            onclick="cambiarSeccionAdmin('zones', event)"
+          >
+            <span class="nav-icon">🗺️</span>
+            <span>Zonas</span>
+          </a>
+          <a
+            href="#"
+            class="nav-item"
+            onclick="cambiarSeccionAdmin('configuration', event)"
+          >
+            <span class="nav-icon">⚙️</span>
+            <span>Configuración</span>
+          </a>
+        </nav>
 
-        <main class="admin-main">
-            <header class="admin-header">
-                <div class="header-left">
-                    <h1 id="sectionTitle">Dashboard General</h1>
-                    <p class="header-breadcrumb">Panel / <span id="breadcrumb">Dashboard</span></p>
-                </div>
-                <div class="header-right">
-                    <div class="admin-user-info">
-                        <div class="admin-avatar">👤</div>
-                        <div class="admin-user-details">
-                            <h4 id="adminName">Admin Demo</h4>
-                            <p>Administrador</p>
-                        </div>
-                    </div>
-                </div>
-            </header>
+        <div class="sidebar-footer">
+          <button class="btn btn-secondary btn-full" onclick="cerrarSesion()">
+            🚪 Cerrar Sesión
+          </button>
+        </div>
+      </aside>
 
-            <div class="admin-content">
-                <section id="admin-content-container" class="admin-section active">
-                    </section>
+      <main class="admin-main">
+        <header class="admin-header">
+          <div class="header-left">
+            <h1 id="sectionTitle">Dashboard General</h1>
+            <p class="header-breadcrumb">
+              Panel / <span id="breadcrumb">Dashboard</span>
+            </p>
+          </div>
+          <div class="header-right">
+            <div class="admin-user-info">
+              <div class="admin-avatar">👤</div>
+              <div class="admin-user-details">
+                <h4 id="adminName">Admin Demo</h4>
+                <p>Administrador</p>
+              </div>
             </div>
-        </main>
+          </div>
+        </header>
+
+        <div class="admin-content">
+          <section
+            id="admin-content-container"
+            class="admin-section active"
+          ></section>
+        </div>
+      </main>
     </div>
 
     <div id="modalGuia" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Agregar Nuevo Guía</h2>
-                <button class="modal-close" onclick="cerrarModalGuia()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form class="modal-form">
-                    <div class="form-group">
-                        <label>Nombre Completo</label>
-                        <input type="text" placeholder="Dr. Juan Pérez">
-                    </div>
-                    <div class="form-group">
-                        <label>Especialidad</label>
-                        <select>
-                            <option>Historia Maya</option>
-                            <option>Arqueología</option>
-                            <option>Arquitectura</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" placeholder="guia@email.com">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline" onclick="cerrarModalGuia()">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Agregar Nuevo Guía</h2>
+          <button class="modal-close" onclick="cerrarModalGuia()">
+            &times;
+          </button>
         </div>
+        <div class="modal-body">
+          <form class="modal-form">
+            <div class="form-group">
+              <label>Nombre Completo</label>
+              <input type="text" placeholder="Dr. Juan Pérez" />
+            </div>
+            <div class="form-group">
+              <label>Especialidad</label>
+              <select>
+                <option>Historia Maya</option>
+                <option>Arqueología</option>
+                <option>Arquitectura</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="guia@email.com" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline"
+            onclick="cerrarModalGuia()"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
     </div>
 
     <div id="modalEvento" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Crear Nuevo Evento</h2>
-                <button class="modal-close" onclick="cerrarModalEvento()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form class="modal-form">
-                    <div class="form-group">
-                        <label>Nombre del Evento</label>
-                        <input type="text" placeholder="Tour Nocturno">
-                    </div>
-                    <div class="form-group">
-                        <label>Fecha y Hora</label>
-                        <input type="datetime-local">
-                    </div>
-                    <div class="form-group">
-                        <label>Nivel de Acceso</label>
-                        <select>
-                            <option>Todos</option>
-                            <option>Premium</option>
-                            <option>VIP</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline" onclick="cerrarModalEvento()">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Crear Evento</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Crear Nuevo Evento</h2>
+          <button class="modal-close" onclick="cerrarModalEvento()">
+            &times;
+          </button>
         </div>
+        <div class="modal-body">
+          <form class="modal-form">
+            <div class="form-group">
+              <label>Nombre del Evento</label>
+              <input type="text" placeholder="Tour Nocturno" />
+            </div>
+            <div class="form-group">
+              <label>Fecha y Hora</label>
+              <input type="datetime-local" />
+            </div>
+            <div class="form-group">
+              <label>Nivel de Acceso</label>
+              <select>
+                <option>Todos</option>
+                <option>Premium</option>
+                <option>VIP</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline"
+            onclick="cerrarModalEvento()"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Crear Evento</button>
+        </div>
+      </div>
     </div>
 
     <div id="modalZona" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Gestionar Zona</h2>
-                <button class="modal-close" onclick="cerrarModalZona()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form class="modal-form">
-                    <div class="form-group">
-                        <label>Nombre de la Zona</label>
-                        <input type="text" placeholder="Ej: Pirámide de Kukulcán">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <textarea rows="3" placeholder="Descripción para el tour..."></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Nivel de Acceso (Tier)</label>
-                            <select>
-                                <option value="free">Free</option>
-                                <option value="premium">Premium</option>
-                                <option value="vip">VIP</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Puntos de Recompensa</label>
-                            <input type="number" placeholder="100">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Ruta de la Imagen</label>
-                        <input type="text" placeholder="Ej: images/kukulcan.jpeg">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline" onclick="cerrarModalZona()">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar Zona</button>
-            </div>
-        </div>
+      <!-- ...existing code... -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/core/config.js"></script>
     <script src="../js/core/auth.js"></script>
     <script src="../js/utils/notifications.js"></script>
@@ -192,5 +198,5 @@
     <script src="../js/main.js"></script>
 
     <script src="../js/pages/dashboard-admin.js"></script>
-</body>
+  </body>
 </html>

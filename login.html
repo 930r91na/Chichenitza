@@ -1,152 +1,191 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Iniciar Sesión - Chichen Itzá Virtual Tours</title>
     <!-- Modular CSS Imports -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/pages/login.css">
-</head>
-<body class="login-body">
-    <div class="login-background">        
-        <div class="background-overlay"></div>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/pages/login.css" />
+  </head>
+  <body class="login-body">
+    <div class="login-background">
+      <div class="background-overlay"></div>
     </div>
 
     <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="logo-large">
-                    <h1>Chichen Itzá</h1>
-                    <p class="logo-subtitle">Virtual Tours Experience</p>
-                </div>
-            </div>
-
-            <!-- Tab Selection -->
-            <div class="login-tabs">
-                <button class="login-tab active" onclick="cambiarTabLogin('turista')">
-                    <span class="tab-icon">👤</span>
-                    <span>Turista</span>
-                </button>
-                <button class="login-tab" onclick="cambiarTabLogin('admin')">
-                    <span class="tab-icon">⚙️</span>
-                    <span>Administrador</span>
-                </button>
-            </div>
-
-            <!-- Tourist Login -->
-            <div id="turista-login" class="login-form-container active">
-                <h2>Bienvenido de Vuelta</h2>
-                <p class="form-subtitle">Inicia sesión para continuar tu experiencia virtual</p>
-
-                <form id="loginTuristaForm" class="login-form" onsubmit="iniciarSesionTurista(event)">
-                    <div class="form-group-login">
-                        <label for="turistaEmail">
-                            <span class="label-icon">📧</span>
-                            Correo Electrónico
-                        </label>
-                        <input type="email" id="turistaEmail" name="email" required 
-                               placeholder="tu@email.com">
-                    </div>
-
-                    <div class="form-group-login">
-                        <label for="turistaPassword">
-                            <span class="label-icon">🔒</span>
-                            Contraseña
-                        </label>
-                        <input type="password" id="turistaPassword" name="password" required 
-                               placeholder="••••••••">
-                    </div>
-
-                    <div class="form-options">
-                        <label class="checkbox-container">
-                            <input type="checkbox" name="recordar">
-                            <span>Recordarme</span>
-                        </label>
-                        <a href="#" class="link-small">¿Olvidaste tu contraseña?</a>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-full">
-                        Iniciar Sesión
-                    </button>
-                </form>
-
-                <div class="divider">
-                    <span>o</span>
-                </div>
-
-                <button class="btn btn-register" onclick="window.location.href='tourist/registro-turista.html'">
-                    <span>✨</span>
-                    Crear Nueva Cuenta
-                </button>
-
-                <div class="info-box-login">
-                    <h4>💎 Niveles de Membresía</h4>
-                    <div class="membership-tiers">
-                        <div class="tier">
-                            <span class="tier-badge free">FREE</span>
-                            <span class="tier-desc">Acceso a 2 zonas básicas</span>
-                        </div>
-                        <div class="tier">
-                            <span class="tier-badge premium">PREMIUM</span>
-                            <span class="tier-desc">Todas las zonas + Guías</span>
-                        </div>
-                        <div class="tier">
-                            <span class="tier-badge vip">VIP</span>
-                            <span class="tier-desc">Tours privados + Eventos</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Admin Login -->
-            <div id="admin-login" class="login-form-container">
-                <h2>Panel Administrativo</h2>
-                <p class="form-subtitle">Acceso restringido para personal autorizado</p>
-
-                <form id="loginAdminForm" class="login-form" onsubmit="iniciarSesionAdmin(event)">
-                    <div class="form-group-login">
-                        <label for="adminUsuario">
-                            <span class="label-icon">👤</span>
-                            Usuario Administrativo
-                        </label>
-                        <input type="text" id="adminUsuario" name="usuario" required 
-                               placeholder="usuario.admin">
-                    </div>
-
-                    <div class="form-group-login">
-                        <label for="adminPassword">
-                            <span class="label-icon">🔐</span>
-                            Contraseña
-                        </label>
-                        <input type="password" id="adminPassword" name="password" required 
-                               placeholder="••••••••">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-full">
-                        Acceder al Panel
-                    </button>
-                </form>
-            </div>
+      <div class="login-card">
+        <div class="login-header">
+          <div class="logo-large">
+            <h1>Chichen Itzá</h1>
+            <p class="logo-subtitle">Virtual Tours Experience</p>
+          </div>
         </div>
 
-        <!-- Additional Info -->
-        <div class="login-footer">
-            <p>&copy; 2025 Chichen Itzá Virtual Tours | Patrimonio de la Humanidad UNESCO</p>
-            <div class="footer-links">
-                <a href="#">Términos de Servicio</a>
-                <a href="#">Política de Privacidad</a>
-                <a href="#">Soporte</a>
-            </div>
+        <!-- Tab Selection -->
+        <div class="login-tabs">
+          <button class="login-tab active" onclick="cambiarTabLogin('turista')">
+            <span class="tab-icon">👤</span>
+            <span>Turista</span>
+          </button>
+          <button class="login-tab" onclick="cambiarTabLogin('admin')">
+            <span class="tab-icon">⚙️</span>
+            <span>Administrador</span>
+          </button>
         </div>
+
+        <!-- Tourist Login -->
+        <div id="turista-login" class="login-form-container active">
+          <h2>Bienvenido de Vuelta</h2>
+          <p class="form-subtitle">
+            Inicia sesión para continuar tu experiencia virtual
+          </p>
+
+          <form
+            id="loginTuristaForm"
+            class="login-form"
+            onsubmit="iniciarSesionTurista(event)"
+          >
+            <div class="form-group-login">
+              <label for="turistaEmail">
+                <span class="label-icon">📧</span>
+                Correo Electrónico
+              </label>
+              <input
+                type="email"
+                id="turistaEmail"
+                name="email"
+                required
+                placeholder="tu@email.com"
+              />
+            </div>
+
+            <div class="form-group-login">
+              <label for="turistaPassword">
+                <span class="label-icon">🔒</span>
+                Contraseña
+              </label>
+              <input
+                type="password"
+                id="turistaPassword"
+                name="password"
+                required
+                placeholder="••••••••"
+              />
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox-container">
+                <input type="checkbox" name="recordar" />
+                <span>Recordarme</span>
+              </label>
+              <a href="#" class="link-small">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              Iniciar Sesión
+            </button>
+          </form>
+
+          <div class="divider">
+            <span>o</span>
+          </div>
+
+          <button
+            class="btn btn-register"
+            onclick="window.location.href='Tourist/registro-turista.html'"
+          >
+            <span>✨</span>
+            Crear Nueva Cuenta
+          </button>
+
+          <div class="info-box-login">
+            <h4>💎 Niveles de Membresía</h4>
+            <div class="membership-tiers">
+              <div class="tier">
+                <span class="tier-badge free">FREE</span>
+                <span class="tier-desc">Acceso a 2 zonas básicas</span>
+              </div>
+              <div class="tier">
+                <span class="tier-badge premium">PREMIUM</span>
+                <span class="tier-desc">Todas las zonas + Guías</span>
+              </div>
+              <div class="tier">
+                <span class="tier-badge vip">VIP</span>
+                <span class="tier-desc">Tours privados + Eventos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Login -->
+        <div id="admin-login" class="login-form-container">
+          <h2>Panel Administrativo</h2>
+          <p class="form-subtitle">
+            Acceso restringido para personal autorizado
+          </p>
+
+          <form
+            id="loginAdminForm"
+            class="login-form"
+            onsubmit="iniciarSesionAdmin(event)"
+          >
+            <div class="form-group-login">
+              <label for="adminUsuario">
+                <span class="label-icon">👤</span>
+                Usuario Administrativo
+              </label>
+              <input
+                type="text"
+                id="adminUsuario"
+                name="usuario"
+                required
+                placeholder="usuario.admin"
+              />
+            </div>
+
+            <div class="form-group-login">
+              <label for="adminPassword">
+                <span class="label-icon">🔐</span>
+                Contraseña
+              </label>
+              <input
+                type="password"
+                id="adminPassword"
+                name="password"
+                required
+                placeholder="••••••••"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              Acceder al Panel
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Additional Info -->
+      <div class="login-footer">
+        <p>
+          &copy; 2025 Chichen Itzá Virtual Tours | Patrimonio de la Humanidad
+          UNESCO
+        </p>
+        <div class="footer-links">
+          <a href="#">Términos de Servicio</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Soporte</a>
+        </div>
+      </div>
     </div>
 
     <!-- Modular JavaScript Imports -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/core/config.js"></script>
     <script src="js/core/auth.js"></script>
     <script src="js/utils/notifications.js"></script>
     <script src="js/utils/validators.js"></script>
     <script src="js/main.js"></script>
     <script src="js/pages/login.js"></script>
-</body>
+  </body>
 </html>

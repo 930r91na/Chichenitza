@@ -3,99 +3,187 @@
  * Handles admin panel functionality, section loading, and modal management
  */
 
-// Section titles mapping (NOW WITH ENGLISH KEYS)
 const adminSectionTitles = {
-    dashboard: 'Dashboard General',
-    tourists: 'Gestión de Turistas',
-    guides: 'Gestión de Guías Turísticos',
-    events: 'Gestión de Eventos',
-    zones: 'Gestión de Zonas',
-    configuration: 'Configuración del Sistema'
+  dashboard: "Dashboard General",
+  tourists: "Gestión de Turistas",
+  guides: "Gestión de Guías Turísticos",
+  events: "Gestión de Eventos",
+  zones: "Gestión de Zonas",
+  configuration: "Configuración del Sistema",
 };
 
-/**
- * Initialize admin dashboard
- */
-window.onload = function() {
-    const sesion = JSON.parse(localStorage.getItem('sesionActual') || '{}');
-    if (sesion.tipo !== 'admin') {
-        window.location.href = '../login.html';
-        return;
-    }
-    document.getElementById('adminName').textContent = sesion.nombre || 'Admin';
-    loadAdminSection('dashboard'); // Load default section
-};
+$(document).ready(function () {
+  const sesion = JSON.parse(localStorage.getItem("sesionActual") || "{}");
+  if (sesion.tipo !== "admin") {
+    window.location.href = "../login.html";
+    return;
+  }
+  $("#adminName").text(sesion.nombre || "Admin");
+  loadAdminSection("dashboard");
+
+  // Event Delegation for Modals
+  $(document).on("click", "#btn-add-guide", abrirModalGuia);
+  $(document).on("click", "#btn-add-event", abrirModalEvento);
+  $(document).on("click", "#btn-add-zone", abrirModalZona);
+  $(document).on("click", ".btn-edit-zone", abrirModalZona);
+});
 
 /**
  * Dynamically load an admin section's HTML content
  * @param {string} seccion - Section identifier (e.g., 'dashboard', 'guides')
  */
-async function loadAdminSection(seccion) {
-    const contentContainer = document.getElementById('admin-content-container');
-    if (!contentContainer) {
-        console.error('Admin content container not found!');
-        return;
-    }
-    
-    // Asigna la clase de sección para estilos
-    contentContainer.className = `admin-section active ${seccion}-section`;
-    contentContainer.innerHTML = '<div class="content-card"><div class="card-body"><p>Cargando...</p></div></div>';
-    
-    try {
-        const response = await fetch(`./sections/${seccion}.html`);
-        
-        if (!response.ok) {
-            throw new Error(`Could not load section: ${seccion}.html (404 Not Found)`);
-        }
-        
-        const html = await response.text();
-        contentContainer.innerHTML = html;
-        
-        // ¡NUEVO! Adjunta los eventos a los botones recién cargados
-        bindSectionEvents();
-        
-        const title = adminSectionTitles[seccion] || 'Dashboard';
-        document.getElementById('sectionTitle').textContent = title;
-        document.getElementById('breadcrumb').textContent = title;
-        
-    } catch (error) {
-        console.error('Error loading section:', error);
-        contentContainer.innerHTML = `<div class="content-card"><div class="card-body"><p style="color: var(--error);">Error al cargar la sección. Por favor, intente de nuevo.</p></div></div>`;
-    }
+function loadAdminSection(seccion) {
+  const contentContainer = $("#admin-content-container");
+
+  contentContainer
+    .removeClass()
+    .addClass(`admin-section active ${seccion}-section`);
+  contentContainer.html(
+    '<div class="content-card"><div class="card-body"><p>Cargando...</p></div></div>'
+  );
+
+  $.get(`./sections/${seccion}.html`)
+    .done(function (html) {
+      contentContainer.html(html);
+
+      const title = adminSectionTitles[seccion] || "Dashboard";
+      $("#sectionTitle").text(title);
+      $("#breadcrumb").text(title);
+
+      loadSectionData(seccion);
+    })
+    .fail(function () {
+      contentContainer.html(
+        `<div class="content-card"><div class="card-body"><p style="color: var(--error);">Error al cargar la sección.</p></div></div>`
+      );
+    });
 }
 
 /**
- * NUEVA FUNCIÓN
- * Busca botones en el HTML recién inyectado y les adjunta sus funciones de JS.
+ * Fetch and populate data for the section
+ * @param {string} seccion - Section identifier
  */
-function bindSectionEvents() {
-    
-    // --- Para sections/guides.html ---
-    const btnAddGuide = document.getElementById('btn-add-guide');
-    if (btnAddGuide) {
-        btnAddGuide.addEventListener('click', abrirModalGuia);
-    }
-
-    // --- Para sections/events.html ---
-    const btnAddEvent = document.getElementById('btn-add-event');
-    if (btnAddEvent) {
-        btnAddEvent.addEventListener('click', abrirModalEvento);
-    }
-
-    // --- Para sections/zones.html ---
-    const btnAddZone = document.getElementById('btn-add-zone');
-    if (btnAddZone) {
-        btnAddZone.addEventListener('click', abrirModalZona);
-    }
-    // Adjunta evento a todos los botones de "Editar" en la tabla de zonas
-    const btnsEditZone = document.querySelectorAll('.btn-edit-zone');
-    btnsEditZone.forEach(btn => {
-        btn.addEventListener('click', abrirModalZona);
+function loadSectionData(seccion) {
+  if (seccion === "zones") {
+    $.get("http://localhost:3000/api/zones", function (response) {
+      const tbody = $(".data-table tbody");
+      tbody.empty();
+      if (response.data && response.data.length > 0) {
+        response.data.forEach((zone) => {
+          tbody.append(`
+                        <tr>
+                            <td><strong>${zone.name}</strong></td>
+                            <td><span class="status-badge">${zone.access_level}</span></td>
+                            <td>${zone.points}</td>
+                            <td>${zone.image_path}</td>
+                            <td>
+                                <button class="btn-icon btn-edit-zone" title="Editar">✏️</button>
+                                <button class="btn-icon delete" title="Eliminar">🗑️</button>
+                            </td>
+                        </tr>
+                    `);
+        });
+      } else {
+        tbody.append('<tr><td colspan="5">No hay zonas registradas.</td></tr>');
+      }
     });
-
-    // ... (Aquí puedes agregar más listeners para 'tourists.html', etc.) ...
+  } else if (seccion === "guides") {
+    $.get("http://localhost:3000/api/guides", function (response) {
+      const grid = $(".guias-grid");
+      grid.empty();
+      if (response.data && response.data.length > 0) {
+        response.data.forEach((guide) => {
+          grid.append(`
+                        <div class="guia-card">
+                            <div class="guia-header">
+                                <div class="guia-avatar">
+                                    <img src="../images/avatars/default.png" alt="${guide.name}">
+                                </div>
+                                <span class="status-indicator status-${guide.status}">${guide.status}</span>
+                            </div>
+                            <h3>${guide.name}</h3>
+                            <p class="guia-languages">Idiomas: ${guide.languages}</p>
+                            <div class="guia-rating">
+                                <span class="stars">⭐⭐⭐⭐⭐</span>
+                                <span class="rating-number">${guide.rating}</span>
+                            </div>
+                            <div class="guia-actions">
+                                <button class="btn btn-outline btn-sm">Ver Perfil</button>
+                                <button class="btn btn-primary btn-sm">Asignar</button>
+                            </div>
+                        </div>
+                    `);
+        });
+      } else {
+        grid.html("<p>No hay guías registrados.</p>");
+      }
+    });
+  } else if (seccion === "events") {
+    $.get("http://localhost:3000/api/events", function (response) {
+      const list = $(".eventos-list");
+      list.empty();
+      if (response.data && response.data.length > 0) {
+        response.data.forEach((event) => {
+          list.append(`
+                        <div class="evento-card">
+                            <div class="evento-date">
+                                <span class="day">${new Date(
+                                  event.date
+                                ).getDate()}</span>
+                                <span class="month">${new Date(
+                                  event.date
+                                ).toLocaleString("default", {
+                                  month: "short",
+                                })}</span>
+                            </div>
+                            <div class="evento-info">
+                                <h4>${event.title}</h4>
+                                <p>${event.type} • ${event.status}</p>
+                            </div>
+                            <div class="evento-stats">
+                                <span>👥 ${event.attendees} asistentes</span>
+                            </div>
+                            <div class="evento-actions">
+                                <button class="btn-icon">✏️</button>
+                            </div>
+                        </div>
+                    `);
+        });
+      } else {
+        list.html("<p>No hay eventos registrados.</p>");
+      }
+    });
+  } else if (seccion === "tourists") {
+    $.get("http://localhost:3000/api/tourists", function (response) {
+      const tbody = $(".data-table tbody");
+      tbody.empty();
+      if (response.data && response.data.length > 0) {
+        response.data.forEach((user) => {
+          tbody.append(`
+                        <tr>
+                            <td><strong>${user.name}</strong></td>
+                            <td>${user.email}</td>
+                            <td><span class="status-badge">${
+                              user.membership_level
+                            }</span></td>
+                            <td>${new Date(
+                              user.created_at
+                            ).toLocaleDateString()}</td>
+                            <td>
+                                <button class="btn-icon" title="Ver Detalles">👁️</button>
+                                <button class="btn-icon delete" title="Bloquear">🚫</button>
+                            </td>
+                        </tr>
+                    `);
+        });
+      } else {
+        tbody.append(
+          '<tr><td colspan="5">No hay turistas registrados.</td></tr>'
+        );
+      }
+    });
+  }
 }
-
 
 /**
  * Handle sidebar navigation clicks
@@ -103,39 +191,36 @@ function bindSectionEvents() {
  * @param {Event} event - The click event
  */
 function cambiarSeccionAdmin(seccion, event) {
-    event.preventDefault(); 
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    loadAdminSection(seccion);
+  event.preventDefault();
+  $(".nav-item").removeClass("active");
+  $(event.currentTarget).addClass("active");
+  loadAdminSection(seccion);
 }
-
-// --- FUNCIONES DE MODALES (permanecen igual) ---
 
 function abrirModalGuia() {
-    document.getElementById('modalGuia').style.display = 'flex';
+  $("#modalGuia").css("display", "flex");
 }
 function cerrarModalGuia() {
-    document.getElementById('modalGuia').style.display = 'none';
+  $("#modalGuia").css("display", "none");
 }
 function abrirModalEvento() {
-    document.getElementById('modalEvento').style.display = 'flex';
+  $("#modalEvento").css("display", "flex");
 }
 function cerrarModalEvento() {
-    document.getElementById('modalEvento').style.display = 'none';
+  $("#modalEvento").css("display", "none");
 }
-// Nueva función de modal para Zonas
 function abrirModalZona() {
-    document.getElementById('modalZona').style.display = 'flex';
+  $("#modalZona").css("display", "flex");
 }
 function cerrarModalZona() {
-    document.getElementById('modalZona').style.display = 'none';
+  $("#modalZona").css("display", "none");
 }
 
 function cerrarSesion() {
-    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-        localStorage.removeItem('sesionActual');
-        window.location.href = '../login.html';
-    }
+  if (confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+    localStorage.removeItem("sesionActual");
+    window.location.href = "../login.html";
+  }
 }
 
 // Export functions globally
@@ -144,6 +229,6 @@ window.abrirModalGuia = abrirModalGuia;
 window.cerrarModalGuia = cerrarModalGuia;
 window.abrirModalEvento = abrirModalEvento;
 window.cerrarModalEvento = cerrarModalEvento;
-window.abrirModalZona = abrirModalZona;   
-window.cerrarModalZona = cerrarModalZona; 
+window.abrirModalZona = abrirModalZona;
+window.cerrarModalZona = cerrarModalZona;
 window.cerrarSesion = cerrarSesion;
