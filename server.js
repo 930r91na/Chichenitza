@@ -27,7 +27,7 @@ app.post("/api/login", (req, res) => {
       // Remove password from response
       const { password, ...user } = row;
       // Map 'role' to 'tipo' for compatibility with existing frontend code
-      user.tipo = user.role;
+      user.tipo = user.role === "tourist" ? "turista" : user.role;
       user.nivel = user.membership_level;
       res.json({ success: true, user });
     } else {

@@ -212,12 +212,13 @@ const Auth = {
 
     switch (session.tipo) {
       case "turista":
-        window.location.href = "./tourist/tour-turista.html";
+        window.location.href = "./Tourist/tour-turista.html";
         break;
       case "admin":
-        window.location.href = "./admin/dashboard-admin.html";
+        window.location.href = "./Admin/dashboard-admin.html";
         break;
       default:
+        this.clearSession();
         window.location.href = "./login.html";
     }
   },

@@ -6,7 +6,7 @@
 // Verificar si ya hay sesión activa al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
   const sesion = ChichenItzaAuth.getSession();
-  if (sesion) {
+  if (sesion && sesion.tipo) {
     ChichenItzaAuth.redirectByRole();
   }
 });

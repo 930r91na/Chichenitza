@@ -20,6 +20,10 @@ db.serialize(() => {
         password TEXT,
         role TEXT, -- 'admin', 'tourist', 'guide'
         membership_level TEXT DEFAULT 'free', -- 'free', 'premium', 'vip'
+        avatar_name TEXT,
+        avatar_image TEXT,
+        country TEXT,
+        registration_date DATETIME,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 
@@ -76,15 +80,43 @@ db.serialize(() => {
         "Pirámide de Kukulcán",
         "free",
         100,
-        "images/zones/kukulcan.jpg",
+        "images/kukulcan.jpeg",
         "La pirámide principal."
       );
       zoneStmt.run(
         "Juego de Pelota",
         "premium",
         200,
-        "images/zones/juego-pelota.jpg",
+        "images/juego-pelota.webp",
         "El campo de juego de pelota más grande."
+      );
+      zoneStmt.run(
+        "Templo de los Guerreros",
+        "premium",
+        150,
+        "images/templo-guerreros.jpg",
+        "Templo rodeado por mil columnas."
+      );
+      zoneStmt.run(
+        "Cenote Sagrado",
+        "vip",
+        300,
+        "images/cenote-sagrado.jpg",
+        "Lugar sagrado de sacrificios y ofrendas."
+      );
+      zoneStmt.run(
+        "El Caracol",
+        "premium",
+        150,
+        "images/chichenitza.jpeg",
+        "El observatorio astronómico maya."
+      );
+      zoneStmt.run(
+        "Las Monjas",
+        "premium",
+        150,
+        "images/chichen-atardecer.webp",
+        "Complejo de edificios gubernamentales."
       );
       zoneStmt.finalize();
 
